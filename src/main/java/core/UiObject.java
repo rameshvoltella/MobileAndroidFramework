@@ -149,4 +149,37 @@ public class UiObject {
         else Android.driver.findElementByAndroidUIAutomator(locator).click();
         return this;
     }
+
+//    public UiObject scrollTo() {
+//        if (locator.contains("text"))
+//            throw new RuntimeException("Scroll can be used with text attributes: " + locator + "does not contain a text a text atribute");
+//        if (isXpath())
+//            Android.driver.scrollTo(locator.substring(locator.indexOf("@text=\""), locator.indexOf("\")")).replace("@text=\"", ""));
+//        else {
+//            String text;
+//            if (locator.contains("textContains"))
+//                text = locator.substring(locator.indexOf(".textContains(\""), locator.indexOf("\"/")).replace(".textContains(\"", "");
+//            else text = locator.substring(locator.indexOf(".text(\""), locator.indexOf("\"/")).replace(".text(\"", "");
+//            Android.driver.scrollTo(text);
+//        }
+//        return this;
+//    }
+
+    public UiObject waitToAppear(int seconds) {
+        Timer timer = new Timer();
+        timer.start();
+        while (!timer.expired(seconds)) if (exists()) break;
+        if (timer.expired(seconds) && !exists())
+            throw new AssertionError("Element " + locator + "failed to appear" + seconds + "seconds");
+        return this;
+    }
+
+    public UiObject waitToDisappear(int seconds) {
+        Timer timer = new Timer();
+        timer.start();
+        while (!timer.expired(seconds)) if (!exists()) break;
+        if (timer.expired(seconds) && exists())
+            throw new AssertionError("Element " + locator + "failed to appear" + seconds + "seconds");
+        return this;
+    }
 }
