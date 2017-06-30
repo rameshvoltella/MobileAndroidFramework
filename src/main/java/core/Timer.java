@@ -3,22 +3,26 @@ package core;
 import java.util.Date;
 
 /**
- * Created by maiky on 6/29/2017.
+ * Created by Artur on 4/22/2016.
  */
 public class Timer {
 
     public long startStamp;
 
-    public static long getTimeStamp() {
-        return new Date().getTime();
-    }
-
-    public void start() {
+    public void start(){
         startStamp = getTimeStamp();
     }
 
-    public boolean expired(int seoonds) {
+    public static long getTimeStamp(){
+        return new Date().getTime();
+    }
+
+    public boolean expired(int seconds){
         int difference = (int) ((getTimeStamp() - startStamp) / 1000);
-        return difference > seoonds;
+        return difference > seconds;
+    }
+
+    public static int getDifference(long start, long end){
+        return (int) ((end - start)/1000);
     }
 }

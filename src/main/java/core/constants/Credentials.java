@@ -1,7 +1,7 @@
 package core.constants;
 
 /**
- * Created by lumihai on 6/29/2017.
+ * Created by Artur on 4/13/2016.
  */
 public class Credentials {
 }
