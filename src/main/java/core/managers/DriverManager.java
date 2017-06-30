@@ -43,7 +43,7 @@ public class DriverManager {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", deviceID);
         caps.setCapability("platformName", "Android");
-//        caps.setCapability("app", "D:/AppiumApk/unlock_apk-debug.apk");
+        caps.setCapability("app", "D:/AppiumApk/unlock_apk-debug.apk");
         caps.setCapability("device", "Simulator");
         caps.setCapability("automationName", "Appium");
         caps.setCapability("platformVersion", "6.0.1");
@@ -52,7 +52,7 @@ public class DriverManager {
 //        capabilities.setCapability("fullReset", true);
 //        capabilities.setCapability("appActivity", "com.android.calendar.AllInOneActivity");
 //        capabilities.setCapability("appPackage", "com.underwood.calendar_beta");
-        caps.setCapability("app", app.getAbsolutePath());
+//        caps.setCapability("app", app.getAbsolutePath());
         caps.setCapability("clearSystemFiles ", true);
         return caps;
     }
@@ -60,7 +60,7 @@ public class DriverManager {
     private static URL host(String deviceID) throws MalformedURLException {
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
-            hosts.put("ZX1G324LHF", new URL("http://0.0.0.0:4723/wd/hub"));
+            hosts.put("192.168.92.101:5555", new URL("http://0.0.0.0:4723/wd/hub"));
         }
         return hosts.get(deviceID);
     }
@@ -72,7 +72,7 @@ public class DriverManager {
         for (Object connectedDevice : connectedDevices) {
             String device = connectedDevice.toString();
             ArrayList apps = new ADB(device).getInstalledPackages();
-            if (apps.contains(unlockPackage)) {
+            if (!apps.contains(unlockPackage)) {
                 if (useDevice(deviceID)) avaiableDevices.add(device);
                 else MyLogger.log.info("Device: " + deviceID + " is being used by another JVM");
             } else
