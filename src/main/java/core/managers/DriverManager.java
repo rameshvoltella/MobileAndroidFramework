@@ -25,7 +25,8 @@ import java.util.Set;
 public class DriverManager {
 
     private static String nodeJS = "C:/nodejs/node.exe";
-    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    //    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
     private static DriverService service;
     private static String deviceID;
 
@@ -38,7 +39,8 @@ public class DriverManager {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", deviceID);
         caps.setCapability("platformName", "Android");
-        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
+//        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
+        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
 //        caps.setCapability("device", "Simulator");
 //        caps.setCapability("automationName", "Appium");
 //        caps.setCapability("platformVersion", "6.0");
@@ -55,7 +57,7 @@ public class DriverManager {
     private static URL host(String deviceID) throws MalformedURLException {
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
-            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
+            hosts.put("192.168.66.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
         }
         return hosts.get(deviceID);
     }
