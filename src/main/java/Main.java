@@ -14,7 +14,7 @@ public class Main {
 
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", "Android Emulator");
-        caps.setCapability("udid", "192.168.92.101:5555");
+        caps.setCapability("udid", "192.168.92.102:5555");
         caps.setCapability("platformName", "Android");
         caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
         caps.setCapability("newCommandTimeout", "600");

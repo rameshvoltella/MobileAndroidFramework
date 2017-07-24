@@ -26,41 +26,38 @@ import java.util.Set;
  */
 public class DriverManager {
 
-    private static String nodeJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
-    private static String appiumJS = "C:/nodejs/node.exe";
+    private static String nodeJS = "C:/nodejs/node.exe";
+    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
     private static DriverService service;
     private static String deviceID;
 
     private static HashMap<String, URL> hosts;
-    private static String unlockPackage = "io.appium.unlock";
+    private static String unlockPackage = "de.telekom.mail";
 
     private static DesiredCapabilities getCaps(String deviceID) {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
-        File appDir = new File("D:/AppiumApk");
-        File app = new File(appDir, "unlock_apk-debug.apk");
-
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", deviceID);
         caps.setCapability("platformName", "Android");
-        caps.setCapability("app", "D:/AppiumApk/unlock_apk-debug.apk");
-        caps.setCapability("device", "Simulator");
-        caps.setCapability("automationName", "Appium");
-        caps.setCapability("platformVersion", "6.0.1");
-        caps.setCapability("newCommandTimeout", 120);
-        caps.setCapability("udid", "192.168.92.101:5555");
+        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
+//        caps.setCapability("device", "Simulator");
+//        caps.setCapability("automationName", "Appium");
+//        caps.setCapability("platformVersion", "6.0");
+//        caps.setCapability("newCommandTimeout", 120);
+//        caps.setCapability("udid", "192.168.92.102:5555");
 //        capabilities.setCapability("fullReset", true);
 //        capabilities.setCapability("appActivity", "com.android.calendar.AllInOneActivity");
 //        capabilities.setCapability("appPackage", "com.underwood.calendar_beta");
 //        caps.setCapability("app", app.getAbsolutePath());
-        caps.setCapability("clearSystemFiles ", true);
+//        caps.setCapability("clearSystemFiles ", true);
         return caps;
     }
 
     private static URL host(String deviceID) throws MalformedURLException {
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
-            hosts.put("192.168.92.101:5555", new URL("http://0.0.0.0:4723/wd/hub"));
+            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
         }
         return hosts.get(deviceID);
     }
