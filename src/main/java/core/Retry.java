@@ -4,9 +4,7 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-/**
- * Created by Artur on 6/15/2016.
- */
+
 public class Retry implements TestRule {
 
     private int rc;

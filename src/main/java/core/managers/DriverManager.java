@@ -21,9 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-/**
- * Created by Artur on 4/13/2016.
- */
+
 public class DriverManager {
 
     private static String nodeJS = "C:/nodejs/node.exe";

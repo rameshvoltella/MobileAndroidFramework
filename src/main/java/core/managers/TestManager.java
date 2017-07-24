@@ -9,9 +9,7 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-/**
- * Created by Artur on 4/13/2016.
- */
+
 public class TestManager {
 
     public static TestInfo testInfo = new TestInfo();

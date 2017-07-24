@@ -3,9 +3,7 @@ package core.managers;
 import java.io.*;
 import java.util.Scanner;
 
-/**
- * Created by Artur on 5/3/2016.
- */
+
 public class ServerManager {
 
     private static String OS;

@@ -8,9 +8,6 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * Created by Artur on 8/25/2016.
- */
 public class Resources {
 
     public static final String QUEUE = ServerManager.getWorkingDir()+"/src/main/resources/queue.json";

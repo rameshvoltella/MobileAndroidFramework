@@ -8,9 +8,6 @@ import api.apps.speedtest.menu.Menu;
 import api.apps.speedtest.results.Results;
 import api.interfaces.Application;
 
-/**
- * Created by Artur on 5/25/2016.
- */
 public class Speedtest implements Application {
 
     public Menu menu = new Menu();

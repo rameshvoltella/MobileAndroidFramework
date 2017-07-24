@@ -2,9 +2,6 @@ package core.constants;
 
 import io.appium.java_client.service.local.flags.ServerArgument;
 
-/**
- * Created by Artur on 7/28/2016.
- */
 public enum Arg implements ServerArgument {
 
     TIMEOUT("--command-timeout"),
