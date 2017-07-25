@@ -69,6 +69,39 @@ public class Loginview implements Activity {
         }
     }
 
+    public Loginview sendTextToUsername(String text) {
+        try {
+            MyLogger.log.info("wait for username filed");
+            loginviewUiObjects.userNameField().waitToAppear(20);
+            loginviewUiObjects.userNameField().tap().typeText(text);
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot send text to username");
+        }
+    }
+
+    public Loginview sendTextToPassword(String text) {
+        try {
+            MyLogger.log.info("wait for password field");
+            loginviewUiObjects.loginPasswordField().waitToAppear(20);
+            loginviewUiObjects.loginPasswordField().tap().typeText(text);
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot send text to password");
+        }
+    }
+
+    public Loginview clickLoginButton() {
+        try {
+            MyLogger.log.info("wait for Gmail Login page");
+            loginviewUiObjects.loginButton().waitToAppear(20);
+            loginviewUiObjects.loginButton().tap();
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot click login button");
+        }
+    }
+
     @Override
     public Object waitToLoad() {
         try {

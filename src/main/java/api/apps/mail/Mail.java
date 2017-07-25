@@ -1,12 +1,16 @@
 package api.apps.mail;
 
 import api.android.Android;
+import api.apps.mail.alerts.Alerts;
 import api.apps.mail.loginview.Loginview;
+import api.apps.mail.mailist.MailList;
 import api.interfaces.Application;
 
 public class Mail implements Application {
 
     public Loginview loginview = new Loginview();
+    public Alerts alerts = new Alerts();
+    public MailList mailList = new MailList();
 
 
     @Override

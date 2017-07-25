@@ -13,6 +13,7 @@ public class Runner {
 
         MyLogger.log.setLevel(Level.INFO);
         try {
+//            Android.adb.uninstallApp("de.telekom.mail");
             DriverManager.createDriver();
             JUnitCore.runClasses(TestPrimer.class);
         } finally {

@@ -13,7 +13,10 @@ public class LoginviewUiObjects {
             okBtnAccountPicker,
             exitingaccount,
             okBtnSelectGmail,
-            gmailloginheaderpage;
+            gmailloginheaderpage,
+            userNameField,
+            loginPasswordField,
+            loginButton;
 
     public UiObject okBtnAccountPicker() {
         if (okBtnAccountPicker == null)
@@ -61,5 +64,23 @@ public class LoginviewUiObjects {
         if (gmailloginheaderpage == null)
             gmailloginheaderpage = new UiSelector().resourceId("com.google.android.gms:id/title").makeUiObject();
         return gmailloginheaderpage;
+    }
+
+    public UiObject userNameField() {
+        if (userNameField == null)
+            userNameField = new UiSelector().resourceId("de.telekom.mail:id/editTextUsername").makeUiObject();
+        return userNameField;
+    }
+
+    public UiObject loginPasswordField() {
+        if (loginPasswordField == null)
+            loginPasswordField = new UiSelector().resourceId("de.telekom.mail:id/editTextPassword").makeUiObject();
+        return loginPasswordField;
+    }
+
+    public UiObject loginButton() {
+        if (loginButton == null)
+            loginButton = new UiSelector().resourceId("de.telekom.mail:id/buttonLogin").makeUiObject();
+        return loginButton;
     }
 }

@@ -12,11 +12,20 @@ public class Experiment extends TestManager {
     @Test
     public void testNou() {
         mail.loginview.waitToLoad();
-        mail.loginview.tapGmail();
         mail.loginview.tapOkBtn();
-        mail.loginview.waitForGmailLoginPage();
-        mail.loginview.selectExistingGmailAccount();
-        mail.loginview.clickOkBtnGmailLogin();
+        mail.loginview.sendTextToUsername("emma.test1");
+        mail.loginview.sendTextToPassword("1234test");
+        mail.loginview.clickLoginButton();
+        mail.alerts.tapAllowAccessContacts();
+        mail.alerts.tapAllowAccessContacts();
+        mail.alerts.clickOkAdsDisclaimerInbox();
+        mail.mailList.tapComposeBtnMailList();
+
+//        mail.loginview.tapGmail();
+//        mail.loginview.tapOkBtn();
+//        mail.loginview.waitForGmailLoginPage();
+//        mail.loginview.selectExistingGmailAccount();
+//        mail.loginview.clickOkBtnGmailLogin();
 
 
     }

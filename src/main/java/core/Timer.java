@@ -2,9 +2,7 @@ package core;
 
 import java.util.Date;
 
-/**
- * Created by Artur on 4/22/2016.
- */
+
 public class Timer {
 
     public long startStamp;

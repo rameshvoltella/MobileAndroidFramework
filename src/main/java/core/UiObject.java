@@ -5,9 +5,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
-/**
- * Created by Artur on 4/13/2016.
- */
+
 public class UiObject {
 
     private String locator;
