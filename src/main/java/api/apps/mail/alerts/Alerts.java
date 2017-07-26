@@ -21,7 +21,7 @@ public class Alerts implements Activity {
 
     public Alerts tapDennyAccessContacts() {
         try {
-            MyLogger.log.info("Tapping on allow to denny contacts");
+            MyLogger.log.info("Tapping on Denny to denny contacts");
             alertsUiObjects.dennyAccessContacts().waitToAppear(10);
             alertsUiObjects.dennyAccessContacts().tap();
             return this;
@@ -32,7 +32,7 @@ public class Alerts implements Activity {
 
     public Alerts clickOkAdsDisclaimerInbox() {
         try {
-            MyLogger.log.info("Tapping on allow to denny contacts");
+            MyLogger.log.info("Tapping Ok on Ads disclaimer in Inbox");
             alertsUiObjects.okAdsDisclaimerInbox().waitToAppear(10);
             alertsUiObjects.okAdsDisclaimerInbox().tap();
             return this;

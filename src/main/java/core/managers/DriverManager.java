@@ -42,7 +42,7 @@ public class DriverManager {
         caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
 //        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
 //        caps.setCapability("device", "Simulator");
-//        caps.setCapability("automationName", "Appium");
+        caps.setCapability("automationName", "uiautomator2");
 //        caps.setCapability("platformVersion", "6.0");
 //        caps.setCapability("newCommandTimeout", 120);
 //        caps.setCapability("udid", "192.168.92.102:5555");
@@ -58,7 +58,8 @@ public class DriverManager {
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
 //            hosts.put("192.168.66.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
-            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
+//            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
+            hosts.put("emulator-5554", new URL("http://127.0.0.1:4723/wd/hub"));
         }
         return hosts.get(deviceID);
     }

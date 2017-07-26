@@ -19,6 +19,17 @@ public class MailList implements Activity {
         }
     }
 
+    public MailList tapBackBtnMailList() {
+        try {
+            MyLogger.log.info("Tapping on back button from mail list to return in Folderlist");
+            mailListUiObjects.backBtnMailList().waitToAppear(10);
+            mailListUiObjects.backBtnMailList().tap();
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot tap on back button from maillist ");
+        }
+    }
+
     @Override
     public Object waitToLoad() {
         return null;
