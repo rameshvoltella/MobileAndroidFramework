@@ -2,6 +2,7 @@ package tests;
 
 import api.android.Android;
 import api.apps.mail.Mail;
+import core.helpers.EmailHelpers;
 import core.managers.TestManager;
 import org.junit.Test;
 
@@ -30,6 +31,9 @@ public class Experiment extends TestManager {
         mail.composer.clickSendButton();
         mail.mailList.tapBackBtnMailList();
         mail.folderlist.findTrustedDialogFolder();
+        mail.folderlist.findInboxFolder();
+        mail.folderlist.enterInboxFolder();
+        EmailHelpers.waitForEmail(EmailHelpers.Folder.POSTEINGANG, "test");
 
 
 //        mail.loginview.tapGmail();

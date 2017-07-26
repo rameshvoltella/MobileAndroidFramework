@@ -10,7 +10,7 @@ public class MailList implements Activity {
 
     public MailList tapComposeBtnMailList() {
         try {
-            MyLogger.log.info("Tapping on allow to accept contacts");
+            MyLogger.log.info("Tap on compose button from mail list");
             mailListUiObjects.composeBtn().waitToAppear(10);
             mailListUiObjects.composeBtn().tap();
             return this;

@@ -13,6 +13,29 @@ public class UiObject {
         MyLogger.log.debug("Created new UiObject: " + this.locator);
     }
 
+    public static void findElementToClickOnItUpInPage2(String locator) {
+        WebElement we = null;
+        int count = 0;
+        while (count < 10) {
+            try {
+                MyLogger.log.info("Trying to see if element is visible before swiping");
+                we = Android.driver.findElementByAndroidUIAutomator(locator);
+                if (we.isDisplayed()) {
+                    MyLogger.log.info("Element is visible so no need to swipe");
+                    break;
+                }
+            } catch (WebDriverException e) {
+                if (e.getMessage().contains("could not be located")) {
+                    MyLogger.log.info("Performing swipe down to find element up in page");
+                    swipeDown();
+                } else {
+                    MyLogger.log.info("Verify method because element is still not visible after swiping");
+                }
+            }
+            count++;
+        }
+    }
+
     public static void swipeUp() {
         Dimension screenDim = Android.driver.manage().window().getSize();
         int height = screenDim.height;
@@ -34,7 +57,7 @@ public class UiObject {
         int height = screenDim.height;
         int width = screenDim.width;
         MyLogger.log.info("Swipe up using android driver swipe command");
-        Android.driver.swipe(width / 2, height / 20, width / 2, height - height / 3, 1000);
+        Android.driver.swipe(width / 2, height /6 , width / 2, height - height / 3, 1000);
     }
 
     public static void refreshEmailListUntilEmailIsDisplayed(String subject) {
@@ -212,6 +235,32 @@ public class UiObject {
                 if (e.getMessage().contains("could not be located")) {
                     MyLogger.log.info("Performing swipe up to find element down in page");
                     swipeUp();
+                } else {
+                    MyLogger.log.info("Verify method because element is still not visible after swiping");
+                }
+            }
+            count++;
+        }
+
+        return this;
+    }
+
+    public UiObject findElementToClickOnItUpInPage() {
+        WebElement we = null;
+        int count = 0;
+        while (count < 10) {
+            try {
+                MyLogger.log.info("Trying to see if element is visible before swiping");
+                we = Android.driver.findElementByAndroidUIAutomator(locator);
+//                we = Android.driver.findElementByAndroidUIAutomator(element);
+                if (we.isDisplayed()) {
+                    MyLogger.log.info("Element is visible so no need to swipe");
+                    break;
+                }
+            } catch (WebDriverException e) {
+                if (e.getMessage().contains("could not be located")) {
+                    MyLogger.log.info("Performing swipe down to find element up in page");
+                    swipeDown();
                 } else {
                     MyLogger.log.info("Verify method because element is still not visible after swiping");
                 }

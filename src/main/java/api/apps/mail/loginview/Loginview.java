@@ -93,7 +93,7 @@ public class Loginview implements Activity {
 
     public Loginview clickLoginButton() {
         try {
-            MyLogger.log.info("wait for Gmail Login page");
+            MyLogger.log.info("wait for Login button to appear");
             loginviewUiObjects.loginButton().waitToAppear(20);
             loginviewUiObjects.loginButton().tap();
             return this;
