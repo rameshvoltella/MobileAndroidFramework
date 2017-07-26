@@ -37,6 +37,23 @@ public class UiObject {
         Android.driver.swipe(width / 2, height / 20, width / 2, height - height / 3, 1000);
     }
 
+    public static void refreshEmailListUntilEmailIsDisplayed(String subject) {
+        int retry = 0;
+        while (retry < 20) {
+            try {
+                WebElement we = null;
+                we = Android.driver.findElementById(subject);
+                if (we.isDisplayed()) {
+                    break;
+                }
+            } catch (Throwable e) {
+                swipeDown();
+            }
+            retry++;
+        }
+
+    }
+
     private boolean isXpath() {
         return !locator.contains("UiSelector");
     }
@@ -150,12 +167,6 @@ public class UiObject {
         return element.getAttribute("contentDesc");
     }
 
-    public UiObject clearText() {
-        if (isXpath()) Android.driver.findElementByXPath(locator).clear();
-        else Android.driver.findElementByAndroidUIAutomator(locator).clear();
-        return this;
-    }
-
 //    public UiObject scrollTo(){
 //        if(!locator.contains("text")) throw new RuntimeException("Scroll to method can only be used with text attributes and current locator: "+locator+" does not contain any text attributes!");
 //        if(isXpath()) Android.driver.scrollTo(locator.substring(locator.indexOf("@text=\""), locator.indexOf("\"]")).replace("@text=\"", ""));
@@ -167,6 +178,12 @@ public class UiObject {
 //        }
 //        return this;
 //    }
+
+    public UiObject clearText() {
+        if (isXpath()) Android.driver.findElementByXPath(locator).clear();
+        else Android.driver.findElementByAndroidUIAutomator(locator).clear();
+        return this;
+    }
 
     public UiObject typeText(String value) {
         if (isXpath()) Android.driver.findElementByXPath(locator).sendKeys(value);

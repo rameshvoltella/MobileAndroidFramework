@@ -1,7 +1,8 @@
-package core;
+package core.helpers;
 
 // File Name SendEmail.java
 
+import core.MyLogger;
 import org.apache.log4j.Logger;
 
 import javax.activation.*;
