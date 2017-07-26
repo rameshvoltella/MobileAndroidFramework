@@ -8,22 +8,12 @@ import org.junit.Test;
 
 import static io.appium.java_client.android.AndroidKeyCode.KEYCODE_ENTER;
 
-public class Experiment extends TestManager {
+public class Experiment2 extends TestManager {
 
     private static Mail mail = Android.app.mail;
 
-//    @BeforeClass
-//    public static void beforeClass(){
-//        mail.open();
-//    }
-//
-//    @Before
-//    public void before(){
-//        testInfo.suite("Experiment");
-//    }
-
     @Test
-    public void testNou() {
+    public void testNou2() {
         mail.loginview.waitForAccountPicker();
         mail.loginview.tapOkBtn();
         mail.loginview.sendTextToUsername("emma.test1");
@@ -40,15 +30,9 @@ public class Experiment extends TestManager {
         mail.composer.sendKeysToBody("this is a test body");
         mail.composer.clickSendButton();
         mail.mailList.tapBackBtnMailList();
-        mail.folderlist.findTrustedDialogFolder();
-        mail.folderlist.findInboxFolder();
         mail.folderlist.enterInboxFolder();
         EmailHelpers.waitForEmail(EmailHelpers.Folder.POSTEINGANG, "test");
-//        mail.loginview.tapGmail();
-//        mail.loginview.tapOkBtn();
-//        mail.loginview.waitForGmailLoginPage();
-//        mail.loginview.selectExistingGmailAccount();
-//        mail.loginview.clickOkBtnGmailLogin();
+
     }
 
 }

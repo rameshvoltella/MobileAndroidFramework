@@ -102,15 +102,19 @@ public class Loginview implements Activity {
         }
     }
 
-    @Override
-    public Object waitToLoad() {
+    public Object waitForAccountPicker() {
         try {
             MyLogger.log.info("Waiting for account picker activity");
-            loginviewUiObjects.accountpickertitle().waitToAppear(20);
+            loginviewUiObjects.accountpickertitle().waitToAppear(10);
             return Android.app.mail.loginview;
         } catch (AssertionError e) {
             throw new AssertionError("About activity failed to load/open");
         }
+    }
+
+    @Override
+    public Object waitToLoad() {
+        return null;
     }
 
 }
