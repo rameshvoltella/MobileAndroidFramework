@@ -9,6 +9,7 @@ repositories {
     mavenCentral()
     maven { url "https://mvnrepository.com/artifact/com.sikulix/sikulixapi" }
     maven { url "https://mvnrepository.com/artifact/jxgrabkey/jxgrabkey" }
+    maven { url "https://mvnrepository.com/artifact/org.sikuli/sikuli-api" }
 }
 
 dependencies {
