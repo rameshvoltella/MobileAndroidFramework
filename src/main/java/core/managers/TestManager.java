@@ -1,5 +1,7 @@
 package core.managers;
 
+import api.android.Android;
+import api.apps.mail.Mail;
 import core.MyLogger;
 import core.Retry;
 import core.TestInfo;
@@ -16,6 +18,7 @@ import java.net.MalformedURLException;
 public class TestManager {
 
     public static TestInfo testInfo = new TestInfo();
+    public static Mail mail = Android.app.mail;
 
     @Rule
     public Retry retry = new Retry(3);
