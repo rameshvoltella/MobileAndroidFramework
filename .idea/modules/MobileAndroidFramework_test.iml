@@ -97,6 +97,7 @@
     <orderEntry type="library" name="Gradle: org.eclipse.jetty.websocket:websocket-api:9.4.3.v20170317" level="project" />
     <orderEntry type="library" name="Gradle: xml-apis:xml-apis:1.4.01" level="project" />
     <orderEntry type="library" name="Gradle: com.sikulix:sikulixlibswin:1.1.0" level="project" />
+    <orderEntry type="module" module-name="MobileAndroidFramework_main" scope="TEST" />
   </component>
   <component name="TestModuleProperties" production-module="MobileAndroidFramework_main" />
 </module>
