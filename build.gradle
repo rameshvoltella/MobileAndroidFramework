@@ -16,10 +16,10 @@ repositories {
     }
 }
 
-tasks runSuite(type: Test) {
-    include '**/TestPrimer.class'
-    exclude '**/*Test.class'
-}
+//tasks runSuite(type: Test) {
+//    include '**/TestPrimer.class'
+//    exclude '**/*Test.class'
+//}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
