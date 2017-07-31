@@ -25,7 +25,7 @@ public class MultiThread implements Runnable {
             new Thread(new SyncPipe(p.getErrorStream(), System.err)).start();
             new Thread(new SyncPipe(p.getInputStream(), System.out)).start();
             PrintWriter stdin = new PrintWriter(p.getOutputStream());
-            stdin.println("cd D:\\AndroidStudioSDK\\emulator && emulator -avd Pixel_XL_API_26");
+            stdin.println("D: && cd D:\\AndroidStudioSDK\\emulator && emulator -avd Pixel_XL_API_26");
 //            stdin.flush();
             stdin.close();
             p.waitFor();
