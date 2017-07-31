@@ -21,12 +21,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import static core.TestThread.createEmulator;
+
 
 public class DriverManager {
 
     private static String nodeJS = "C:/nodejs/node.exe";
-    //    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
-    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    //    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
     private static DriverService service;
     private static String deviceID;
 
@@ -39,8 +41,8 @@ public class DriverManager {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", deviceID);
         caps.setCapability("platformName", "Android");
-//        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
-        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
+        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
+//        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
 //        caps.setCapability("device", "Simulator");
         caps.setCapability("automationName", "uiautomator2");
 //        caps.setCapability("platformVersion", "6.0");
@@ -77,8 +79,25 @@ public class DriverManager {
             } else
                 MyLogger.log.info("Device: " + device + " has " + unlockPackage + " installed, assuming it is under testing");
         }
-        if (avaiableDevices.size() == 0)
-            throw new RuntimeException("Not a single device is available for testing at this time");
+        if (avaiableDevices.size() == 0) {
+            //            throw new RuntimeException("Not a single device is available for testing at this time");
+            createEmulator();
+            try {
+                Thread.sleep(40000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ArrayList connectedDevices2 = ADB.getConnectedDevices();
+            for (Object connectedDevice : connectedDevices2) {
+                String device = connectedDevice.toString();
+                ArrayList apps = new ADB(device).getInstalledPackages();
+                if (!apps.contains(unlockPackage)) {
+                    if (useDevice(deviceID)) avaiableDevices.add(device);
+                    else MyLogger.log.info("Device: " + deviceID + " is being used by another JVM");
+                } else
+                    MyLogger.log.info("Device: " + device + " has " + unlockPackage + " installed, assuming it is under testing");
+            }
+        }
         return avaiableDevices;
     }
 
@@ -121,7 +140,7 @@ public class DriverManager {
             MyLogger.log.info("Killing Android Driver");
             Android.driver.quit();
             Android.adb.uninstallApp(unlockPackage);
-            Android.adb.killEmulator();
+//            Android.adb.killEmulator();
             service.stop();
         } else MyLogger.log.info("Android Driver is not initialized, nothing to kill");
     }
