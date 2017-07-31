@@ -121,6 +121,7 @@ public class DriverManager {
             MyLogger.log.info("Killing Android Driver");
             Android.driver.quit();
             Android.adb.uninstallApp(unlockPackage);
+            Android.adb.killEmulator();
             service.stop();
         } else MyLogger.log.info("Android Driver is not initialized, nothing to kill");
     }

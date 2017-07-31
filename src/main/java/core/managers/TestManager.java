@@ -14,6 +14,8 @@ import org.junit.runner.Description;
 
 import java.net.MalformedURLException;
 
+import static core.TestThread.createEmulator;
+
 
 public class TestManager {
 
@@ -40,6 +42,12 @@ public class TestManager {
     @Before
     public void before() throws MalformedURLException {
         testInfo.reset();
+        createEmulator();
+        try {
+            Thread.sleep(40000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         DriverManager.createDriver();
     }
 

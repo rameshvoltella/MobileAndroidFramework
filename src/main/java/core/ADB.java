@@ -44,6 +44,10 @@ public class ADB {
         return devices;
     }
 
+    public void killEmulator() {
+        command("adb -s " + ID + " emu kill");
+    }
+
     public String getForegroundActivity() {
         return command("adb -s " + ID + " shell dumpsys window windows | grep mCurrentFocus");
     }
