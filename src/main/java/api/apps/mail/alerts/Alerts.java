@@ -11,8 +11,8 @@ public class Alerts implements Activity {
     public Alerts tapAllowAccessContacts() {
         try {
             MyLogger.log.info("Tapping on allow to accept contacts");
-            alertsUiObjects.okBtnAccountPicker().waitToAppear(10);
-            alertsUiObjects.okBtnAccountPicker().tap();
+            alertsUiObjects.allowAccessContacts().waitToAppear(30);
+            alertsUiObjects.allowAccessContacts().tap();
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot tap on allow to access contacts");
@@ -33,7 +33,7 @@ public class Alerts implements Activity {
     public Alerts clickOkAdsDisclaimerInbox() {
         try {
             MyLogger.log.info("Tapping Ok on Ads disclaimer in Inbox");
-            alertsUiObjects.okAdsDisclaimerInbox().waitToAppear(10);
+            alertsUiObjects.okAdsDisclaimerInbox().waitToAppear(15);
             alertsUiObjects.okAdsDisclaimerInbox().tap();
             return this;
         } catch (NoSuchElementException e) {

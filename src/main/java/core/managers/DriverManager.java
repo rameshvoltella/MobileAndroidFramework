@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import static core.TestThread.createEmulator;
-
 
 public class DriverManager {
 
@@ -62,6 +60,7 @@ public class DriverManager {
 //            hosts.put("192.168.66.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
 //            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
             hosts.put("emulator-5554", new URL("http://127.0.0.1:4723/wd/hub"));
+//            hosts.put("emulator-5556", new URL("http://127.0.0.1:4723/wd/hub"));
         }
         return hosts.get(deviceID);
     }
@@ -80,23 +79,23 @@ public class DriverManager {
                 MyLogger.log.info("Device: " + device + " has " + unlockPackage + " installed, assuming it is under testing");
         }
         if (avaiableDevices.size() == 0) {
-            //            throw new RuntimeException("Not a single device is available for testing at this time");
-            createEmulator();
-            try {
-                Thread.sleep(40000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ArrayList connectedDevices2 = ADB.getConnectedDevices();
-            for (Object connectedDevice : connectedDevices2) {
-                String device = connectedDevice.toString();
-                ArrayList apps = new ADB(device).getInstalledPackages();
-                if (!apps.contains(unlockPackage)) {
-                    if (useDevice(deviceID)) avaiableDevices.add(device);
-                    else MyLogger.log.info("Device: " + deviceID + " is being used by another JVM");
-                } else
-                    MyLogger.log.info("Device: " + device + " has " + unlockPackage + " installed, assuming it is under testing");
-            }
+            throw new RuntimeException("Not a single device is available for testing at this time");
+//            createEmulator();
+//            try {
+//                Thread.sleep(40000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            ArrayList connectedDevices2 = ADB.getConnectedDevices();
+//            for (Object connectedDevice : connectedDevices2) {
+//                String device = connectedDevice.toString();
+//                ArrayList apps = new ADB(device).getInstalledPackages();
+//                if (!apps.contains(unlockPackage)) {
+//                    if (useDevice(deviceID)) avaiableDevices.add(device);
+//                    else MyLogger.log.info("Device: " + deviceID + " is being used by another JVM");
+//                } else
+//                    MyLogger.log.info("Device: " + device + " has " + unlockPackage + " installed, assuming it is under testing");
+//            }
         }
         return avaiableDevices;
     }

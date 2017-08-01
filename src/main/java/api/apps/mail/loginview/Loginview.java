@@ -4,6 +4,9 @@ import api.android.Android;
 import api.interfaces.Activity;
 import core.MyLogger;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriverException;
+
+import static core.managers.TestManager.mail;
 
 public class Loginview implements Activity {
 
@@ -80,6 +83,18 @@ public class Loginview implements Activity {
         }
     }
 
+    public Loginview sendTextToUsernameGmail(String username) {
+        try {
+            MyLogger.log.info("wait for username filed");
+            loginviewUiObjects.gmailUsernameInput().waitToAppear(20);
+            loginviewUiObjects.gmailUsernameInput().tap().typeText(username);
+            loginviewUiObjects.gmailLoginUsernameNextButton().tap();
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot send text to username");
+        }
+    }
+
     public Loginview sendTextToPassword(String text) {
         try {
             MyLogger.log.info("wait for password field");
@@ -90,6 +105,19 @@ public class Loginview implements Activity {
             throw new AssertionError("Cannot send text to password");
         }
     }
+
+    public Loginview sendTextToPasswordGmail(String text) {
+        try {
+            MyLogger.log.info("wait for password field");
+            loginviewUiObjects.gmailPasswordInput().waitToAppear(20);
+            loginviewUiObjects.gmailPasswordInput().tap().typeText(text);
+            loginviewUiObjects.gmailLoginPasswordNextButton().tap();
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot send text to password");
+        }
+    }
+
 
     public Loginview clickLoginButton() {
         try {
@@ -109,6 +137,66 @@ public class Loginview implements Activity {
             return Android.app.mail.loginview;
         } catch (AssertionError e) {
             throw new AssertionError("About activity failed to load/open");
+        }
+    }
+
+
+    public Object generalLogin(String username, String password, int index) {
+        try {
+            waitForAccountPicker();
+
+            if (username.contains("t-online")) {
+                tapOkBtn();
+                sendTextToUsername(username);
+                sendTextToPassword(password);
+                clickLoginButton();
+            } else if (username.contains("gmail")) {
+                tapGmail();
+                tapOkBtn();
+                try {
+                    mail.alerts.tapAllowAccessContacts();
+                } catch (AssertionError e1) {
+                    //do nothing
+                }
+
+                try {
+                    loginviewUiObjects.chooseGmailAccount().waitToAppear(20);
+                    if (loginviewUiObjects.selectAlreadyLoggedInGmailAccount(index).getText().equals(username)) {
+                        loginviewUiObjects.selectAlreadyLoggedInGmailAccount(index).waitToAppear(10).tap();
+                        loginviewUiObjects.okBtnSelectGmail().waitToAppear(10).tap();
+                    } else {
+                        loginviewUiObjects.addNewGmailAccount().waitToAppear(10).tap();
+                        loginviewUiObjects.okBtnSelectGmail().waitToAppear(10).tap();
+                        loginviewUiObjects.signInGmailHeader().waitToAppear(20);
+                        sendTextToUsernameGmail(username);
+                        loginviewUiObjects.gmailAccountProfileIdentifier().waitToAppear(20);
+                        sendTextToPasswordGmail(password);
+                        loginviewUiObjects.singInAgreeGmail().waitToAppear(20).tap();
+                        try {
+                            //this is displayed only when you`re login for the 1st time with a Gmail...
+                            loginviewUiObjects.allowGmailnBackup().waitToAppear(20).tap();
+                        } catch (AssertionError e) {
+                            //do nothing
+                        }
+                        loginviewUiObjects.allowGmailNotification().waitToAppear(10).tap();
+                    }
+                } catch (AssertionError e) {
+                    loginviewUiObjects.signInGmailHeader().waitToAppear(20);
+                    sendTextToUsernameGmail(username);
+                    loginviewUiObjects.gmailAccountProfileIdentifier().waitToAppear(20);
+                    sendTextToPasswordGmail(password);
+                    loginviewUiObjects.singInAgreeGmail().waitToAppear(20).tap();
+                    loginviewUiObjects.allowGmailnBackup().waitToAppear(20).tap();
+                    loginviewUiObjects.allowGmailNotification().waitToAppear(20).tap();
+                }
+            } else {
+//            click(accountTypePickerView.THIRD_PARTY_LOGIN);
+//            click(accountTypePickerView.OK_BTN);
+//            login3rdPartyAccount(cred);
+            }
+            return this;
+        } catch (WebDriverException e) {
+            throw new AssertionError("Cannot login with give credentials" + username + password + e.getMessage());
         }
     }
 

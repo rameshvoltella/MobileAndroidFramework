@@ -21,7 +21,8 @@ public class TestManager {
     public static Mail mail = Android.app.mail;
 
     @Rule
-    public Retry retry = new Retry(3);
+    public Retry retry = new Retry(1);
+//    public Retry retry = new Retry(3);
     @Rule
     public TestRule listen = new TestWatcher() {
         @Override

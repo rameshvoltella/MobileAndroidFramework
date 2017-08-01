@@ -10,7 +10,7 @@ public class AlertsUiObjects {
             dennyAccessContacts,
             okAdsDisclaimerInbox;
 
-    public UiObject okBtnAccountPicker() {
+    public UiObject allowAccessContacts() {
         if (allowAccessContacts == null)
             allowAccessContacts = new UiSelector().resourceId("com.android.packageinstaller:id/permission_allow_button").makeUiObject();
         return allowAccessContacts;

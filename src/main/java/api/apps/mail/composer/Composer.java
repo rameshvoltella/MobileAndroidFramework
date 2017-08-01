@@ -1,8 +1,11 @@
 package api.apps.mail.composer;
 
+import api.android.Android;
 import api.interfaces.Activity;
 import core.MyLogger;
 import org.openqa.selenium.NoSuchElementException;
+
+import static io.appium.java_client.android.AndroidKeyCode.KEYCODE_ENTER;
 
 public class Composer implements Activity {
 
@@ -13,6 +16,7 @@ public class Composer implements Activity {
             MyLogger.log.info("Sending keys to An field");
             composerUiObjects.anField().waitToAppear(10);
             composerUiObjects.anField().tap().typeText(address);
+            Android.driver.pressKeyCode(KEYCODE_ENTER);
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot keys to AN field");
@@ -24,6 +28,7 @@ public class Composer implements Activity {
             MyLogger.log.info("Sending keys to Subject field");
             composerUiObjects.subjectField().waitToAppear(10);
             composerUiObjects.subjectField().tap().typeText(subject);
+            Android.driver.pressKeyCode(KEYCODE_ENTER);
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot keys to Subject field");
@@ -46,6 +51,7 @@ public class Composer implements Activity {
             MyLogger.log.info("Click Send button from composer");
             composerUiObjects.sendButton().waitToAppear(2);
             composerUiObjects.sendButton().tap();
+            Android.driver.pressKeyCode(KEYCODE_ENTER);
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot click on Send button in Composer");
