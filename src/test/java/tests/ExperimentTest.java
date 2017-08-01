@@ -17,9 +17,7 @@ public class ExperimentTest extends TestManager {
 
     @Test
     public void testNou() {
-        mail.alerts.tapAllowAccessContacts();
-        mail.alerts.tapAllowAccessContacts();
-        mail.alerts.clickOkAdsDisclaimerInbox();
+        testInfo.id("test2").name("Send an e-mail and verify if it appears in Inbox").suite("TestPrimer");
         mail.mailList.tapComposeBtnMailList();
         mail.composer.sendKeysToAn("emma.test1@t-online.de");
         mail.composer.dimissemig();
@@ -33,11 +31,6 @@ public class ExperimentTest extends TestManager {
         mail.folderlist.findFolderUp(mail.folderlistUiObjects.inboxFolder());
         mail.folderlist.enterInFolder(mail.folderlistUiObjects.inboxFolder());
         waitForEmail(EmailHelpers.Folder.POSTEINGANG, "test");
-//        mail.loginview.tapGmail();
-//        mail.loginview.tapOkBtn();
-//        mail.loginview.waitForGmailLoginPage();
-//        mail.loginview.selectExistingGmailAccount();
-//        mail.loginview.clickOkBtnGmailLogin();
     }
 
 }

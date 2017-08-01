@@ -1,10 +1,8 @@
 package api.apps.mail.loginview;
 
-import api.android.Android;
 import api.interfaces.Activity;
 import core.MyLogger;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriverException;
 
 import static core.managers.TestManager.mail;
 
@@ -12,191 +10,154 @@ public class Loginview implements Activity {
 
     public LoginviewUiObjects loginviewUiObjects = new LoginviewUiObjects();
 
-    public Loginview tapTonline() {
+
+    public Object generalLogin(String username, String password, int index) {
         try {
-            MyLogger.log.info("Tapping tonline option");
-            loginviewUiObjects.tonlineLogin().tap();
+            loginviewUiObjects.accountpickertitle().waitToAppear(10);
+            if (username.contains("t-online")) {
+                loginTelekomAccount(username, password);
+            } else if (username.contains("gmail")) {
+                selectGmailInAccountPicker();
+                try {
+                    loginviewUiObjects.chooseGmailAccount().waitToAppear(20);
+                    if (loginviewUiObjects.selectAlreadyLoggedInGmailAccount(index).getText().equals(username)) {
+                        selectLoggedinGmailAccout(index);
+                    } else {
+                        addOtherGmailAccount(username, password);
+                    }
+                } catch (AssertionError e) {
+                    addFirstGmailAccount(username, password);
+                }
+            } else {
+                login3rdAccount(username, password);
+
+            }
             return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot tap on Tonline Button, element absent or blocked");
+        } catch (AssertionError e) {
+            throw new AssertionError("Cannot login with give credentials" + username + password + e.getMessage());
         }
     }
 
-    public Loginview tapGmail() {
+    public Loginview addOtherGmailAccount(String username, String password) {
         try {
-            MyLogger.log.info("Tapping gmail option");
-            loginviewUiObjects.gmailLogin().tap();
-            return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot tap on Gmail Button, element absent or blocked");
-        }
-    }
-
-    public Loginview tapOkBtn() {
-        try {
-            MyLogger.log.info("Tapping Ok Btn");
-            loginviewUiObjects.okBtnAccountPicker().tap();
-            return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot tap on OK Button, element absent or blocked");
-        }
-    }
-
-    public Loginview selectExistingGmailAccount() {
-        try {
-            MyLogger.log.info("Tapping Ok Btn");
-            loginviewUiObjects.exitingaccount().tap();
-            return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot tap on OK Button, element absent or blocked");
-        }
-    }
-
-    public Loginview waitForGmailLoginPage() {
-        try {
-            MyLogger.log.info("wait for Gmail Login page");
-            loginviewUiObjects.gmailloginheaderpage().waitToAppear(20);
-            return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot tap on OK Button, element absent or blocked");
-        }
-    }
-
-    public Loginview clickOkBtnGmailLogin() {
-        try {
-            MyLogger.log.info("wait for Gmail Login page");
-            loginviewUiObjects.okBtnSelectGmail().waitToAppear(20);
-            return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot tap on OK Button, element absent or blocked");
-        }
-    }
-
-    public Loginview sendTextToUsername(String text) {
-        try {
-            MyLogger.log.info("wait for username filed");
-            loginviewUiObjects.userNameField().waitToAppear(20);
-            loginviewUiObjects.userNameField().tap().typeText(text);
-            return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot send text to username");
-        }
-    }
-
-    public Loginview sendTextToUsernameGmail(String username) {
-        try {
-            MyLogger.log.info("wait for username filed");
-            loginviewUiObjects.gmailUsernameInput().waitToAppear(20);
-            loginviewUiObjects.gmailUsernameInput().tap().typeText(username);
+            MyLogger.log.info("Add another Gmail account from login screen");
+            loginviewUiObjects.addNewGmailAccount().waitToAppear(10).tap();
+            loginviewUiObjects.okBtnSelectGmail().waitToAppear(10).tap();
+            loginviewUiObjects.signInGmailHeader().waitToAppear(20);
+            MyLogger.log.info("Insert username new Gmail account: " + username);
+            loginviewUiObjects.gmailUsernameInput().waitToAppear(20).typeText(username);
             loginviewUiObjects.gmailLoginUsernameNextButton().tap();
-            return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot send text to username");
-        }
-    }
-
-    public Loginview sendTextToPassword(String text) {
-        try {
-            MyLogger.log.info("wait for password field");
-            loginviewUiObjects.loginPasswordField().waitToAppear(20);
-            loginviewUiObjects.loginPasswordField().tap().typeText(text);
-            return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot send text to password");
-        }
-    }
-
-    public Loginview sendTextToPasswordGmail(String text) {
-        try {
-            MyLogger.log.info("wait for password field");
-            loginviewUiObjects.gmailPasswordInput().waitToAppear(20);
-            loginviewUiObjects.gmailPasswordInput().tap().typeText(text);
+            loginviewUiObjects.gmailAccountProfileIdentifier().waitToAppear(20);
+            MyLogger.log.info("Insert password for new Gmail account: " + password);
+            loginviewUiObjects.gmailPasswordInput().waitToAppear(20).typeText(password);
             loginviewUiObjects.gmailLoginPasswordNextButton().tap();
+            loginviewUiObjects.singInAgreeGmail().waitToAppear(20).tap();
+            try {
+                //this is displayed only when you`re login for the 1st time with a Gmail...
+                loginviewUiObjects.allowGmailnBackup().waitToAppear(20).tap();
+            } catch (AssertionError e) {
+                //do nothing
+            }
+            loginviewUiObjects.allowGmailNotification().waitToAppear(10).tap();
+            MyLogger.log.info("New Gmail account was added and we are in Inbox: " + username);
+            mail.alerts.tapAllowAccessContacts();
+            mail.alerts.clickOkAdsDisclaimerInbox();
             return this;
         } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot send text to password");
+            throw new AssertionError("Cannot add another Gmail Account from login page" + username);
         }
     }
 
-
-    public Loginview clickLoginButton() {
+    public Loginview addFirstGmailAccount(String username, String password) {
         try {
-            MyLogger.log.info("wait for Login button to appear");
-            loginviewUiObjects.loginButton().waitToAppear(20);
-            loginviewUiObjects.loginButton().tap();
+            MyLogger.log.info("Add first Gmail account from login screen");
+            loginviewUiObjects.signInGmailHeader().waitToAppear(10);
+            MyLogger.log.info("Add username for first Gmail account from login screen: " + username);
+            loginviewUiObjects.gmailUsernameInput().waitToAppear(20).typeText(username);
+            loginviewUiObjects.gmailLoginUsernameNextButton().tap();
+            loginviewUiObjects.gmailAccountProfileIdentifier().waitToAppear(10);
+            MyLogger.log.info("Add password for first Gmail account from login screen: " + password);
+            loginviewUiObjects.gmailPasswordInput().waitToAppear(20).typeText(password);
+            loginviewUiObjects.gmailLoginPasswordNextButton().tap();
+            loginviewUiObjects.singInAgreeGmail().waitToAppear(20).tap();
+            loginviewUiObjects.allowGmailnBackup().waitToAppear(20).tap();
+            loginviewUiObjects.allowGmailNotification().waitToAppear(20).tap();
+            MyLogger.log.info("New Gmail account was added and we are in Inbox: " + username);
+            mail.alerts.tapAllowAccessContacts();
+            mail.alerts.clickOkAdsDisclaimerInbox();
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot click login button");
         }
     }
 
-    public Object waitForAccountPicker() {
+    public Loginview loginTelekomAccount(String username, String password) {
         try {
-            MyLogger.log.info("Waiting for account picker activity");
-            loginviewUiObjects.accountpickertitle().waitToAppear(10);
-            return Android.app.mail.loginview;
-        } catch (AssertionError e) {
-            throw new AssertionError("About activity failed to load/open");
+            MyLogger.log.info("Add Telekom account from login screen");
+            loginviewUiObjects.tonlineLogin().waitToAppear(3).tap();
+            loginviewUiObjects.okBtnAccountPicker().waitToAppear(3).tap();
+            MyLogger.log.info("Add username for Telekom account from login screen: " + username);
+            loginviewUiObjects.userNameField().waitToAppear(20).typeText(username);
+            MyLogger.log.info("Add password for Telekom account from login screen: " + password);
+            loginviewUiObjects.loginPasswordField().waitToAppear(20).typeText(password);
+            loginviewUiObjects.loginButton().waitToAppear(20).tap();
+            MyLogger.log.info("New Telekom account was added and we are in Inbox: " + username);
+            mail.alerts.tapAllowAccessContacts();
+            mail.alerts.tapAllowAccessContacts();
+            mail.alerts.clickOkAdsDisclaimerInbox();
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot click login button");
         }
     }
 
-
-    public Object generalLogin(String username, String password, int index) {
+    public Loginview login3rdAccount(String username, String password) {
         try {
-            waitForAccountPicker();
+            MyLogger.log.info("Add 3rd Party account from login screen");
+            loginviewUiObjects.thirdPartyAccount().waitToAppear(10).tap();
+            loginviewUiObjects.okBtnAccountPicker().tap();
+            MyLogger.log.info("Add username for 3rd Party account from login screen: " + username);
+            loginviewUiObjects.userNameField3rdParty().waitToAppear(3).tap().typeText(username);
+            MyLogger.log.info("Add password for 3rd Party account from login screen: " + password);
+            loginviewUiObjects.loginPasswordField3rdParty().waitToAppear(3).tap().typeText(password);
+            loginviewUiObjects.loginButton3rdParty().waitToAppear(3).tap();
+            MyLogger.log.info("New 3rd Party account was added and we are in Inbox: " + username);
+            mail.alerts.tapAllowAccessContacts();
+            mail.alerts.tapAllowAccessContacts();
+            mail.alerts.clickOkAdsDisclaimerInbox();
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot click login button");
+        }
+    }
 
-            if (username.contains("t-online")) {
-                tapOkBtn();
-                sendTextToUsername(username);
-                sendTextToPassword(password);
-                clickLoginButton();
-            } else if (username.contains("gmail")) {
-                tapGmail();
-                tapOkBtn();
-                try {
-                    mail.alerts.tapAllowAccessContacts();
-                } catch (AssertionError e1) {
-                    //do nothing
-                }
-
-                try {
-                    loginviewUiObjects.chooseGmailAccount().waitToAppear(20);
-                    if (loginviewUiObjects.selectAlreadyLoggedInGmailAccount(index).getText().equals(username)) {
-                        loginviewUiObjects.selectAlreadyLoggedInGmailAccount(index).waitToAppear(10).tap();
-                        loginviewUiObjects.okBtnSelectGmail().waitToAppear(10).tap();
-                    } else {
-                        loginviewUiObjects.addNewGmailAccount().waitToAppear(10).tap();
-                        loginviewUiObjects.okBtnSelectGmail().waitToAppear(10).tap();
-                        loginviewUiObjects.signInGmailHeader().waitToAppear(20);
-                        sendTextToUsernameGmail(username);
-                        loginviewUiObjects.gmailAccountProfileIdentifier().waitToAppear(20);
-                        sendTextToPasswordGmail(password);
-                        loginviewUiObjects.singInAgreeGmail().waitToAppear(20).tap();
-                        try {
-                            //this is displayed only when you`re login for the 1st time with a Gmail...
-                            loginviewUiObjects.allowGmailnBackup().waitToAppear(20).tap();
-                        } catch (AssertionError e) {
-                            //do nothing
-                        }
-                        loginviewUiObjects.allowGmailNotification().waitToAppear(10).tap();
-                    }
-                } catch (AssertionError e) {
-                    loginviewUiObjects.signInGmailHeader().waitToAppear(20);
-                    sendTextToUsernameGmail(username);
-                    loginviewUiObjects.gmailAccountProfileIdentifier().waitToAppear(20);
-                    sendTextToPasswordGmail(password);
-                    loginviewUiObjects.singInAgreeGmail().waitToAppear(20).tap();
-                    loginviewUiObjects.allowGmailnBackup().waitToAppear(20).tap();
-                    loginviewUiObjects.allowGmailNotification().waitToAppear(20).tap();
-                }
-            } else {
-//            click(accountTypePickerView.THIRD_PARTY_LOGIN);
-//            click(accountTypePickerView.OK_BTN);
-//            login3rdPartyAccount(cred);
+    public Loginview selectGmailInAccountPicker() {
+        try {
+            MyLogger.log.info("Select Gmail option from account picker");
+            loginviewUiObjects.gmailLogin().waitToAppear(2).tap();
+            loginviewUiObjects.okBtnAccountPicker().waitToAppear(2).tap();
+            try {
+                mail.alerts.tapAllowAccessContacts();
+            } catch (AssertionError e1) {
+                //do nothing
             }
             return this;
-        } catch (WebDriverException e) {
-            throw new AssertionError("Cannot login with give credentials" + username + password + e.getMessage());
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot click login button");
+        }
+    }
+
+    public Loginview selectLoggedinGmailAccout(int index) {
+        try {
+            MyLogger.log.info("Select already loggedin Gmail account from account picker");
+            loginviewUiObjects.selectAlreadyLoggedInGmailAccount(index).waitToAppear(10).tap();
+            loginviewUiObjects.okBtnSelectGmail().waitToAppear(10).tap();
+            MyLogger.log.info("Selecting of already logged in account worked and we are in Inbox");
+            mail.alerts.tapAllowAccessContacts();
+            mail.alerts.clickOkAdsDisclaimerInbox();
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot click login button");
         }
     }
 

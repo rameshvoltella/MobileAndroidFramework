@@ -28,7 +28,10 @@ public class LoginviewUiObjects {
             allowGmailNotification,
             chooseGmailAccount,
             selectAlreadyLoggedInGmailAccount,
-            addNewGmailAccount;
+            addNewGmailAccount,
+            userNameField3rdParty,
+            loginPasswordField3rdParty,
+            loginButton3rdParty;
 
     public UiObject okBtnAccountPicker() {
         if (okBtnAccountPicker == null)
@@ -56,7 +59,7 @@ public class LoginviewUiObjects {
 
     public UiObject thirdPartyAccount() {
         if (gmailLogin == null)
-            gmailLogin = new UiSelector().resourceId("de.telekom.mail:id/tp_account_type_picker_gmail_account").makeUiObject();
+            gmailLogin = new UiSelector().resourceId("de.telekom.mail:id/tp_account_type_picker_third_party_account").makeUiObject();
         return gmailLogin;
     }
 
@@ -72,16 +75,16 @@ public class LoginviewUiObjects {
         return okBtnSelectGmail;
     }
 
-    public UiObject gmailloginheaderpage() {
-        if (gmailloginheaderpage == null)
-            gmailloginheaderpage = new UiSelector().resourceId("com.google.android.gms:id/title").makeUiObject();
-        return gmailloginheaderpage;
-    }
-
     public UiObject userNameField() {
         if (userNameField == null)
             userNameField = new UiSelector().resourceId("de.telekom.mail:id/editTextUsername").makeUiObject();
         return userNameField;
+    }
+
+    public UiObject userNameField3rdParty() {
+        if (userNameField3rdParty == null)
+            userNameField3rdParty = new UiSelector().resourceId("de.telekom.mail:id/tp_create_edit_username").makeUiObject();
+        return userNameField3rdParty;
     }
 
     public UiObject loginPasswordField() {
@@ -90,10 +93,22 @@ public class LoginviewUiObjects {
         return loginPasswordField;
     }
 
+    public UiObject loginPasswordField3rdParty() {
+        if (loginPasswordField3rdParty == null)
+            loginPasswordField3rdParty = new UiSelector().resourceId("de.telekom.mail:id/tp_create_edit_password").makeUiObject();
+        return loginPasswordField3rdParty;
+    }
+
     public UiObject loginButton() {
         if (loginButton == null)
             loginButton = new UiSelector().resourceId("de.telekom.mail:id/buttonLogin").makeUiObject();
         return loginButton;
+    }
+
+    public UiObject loginButton3rdParty() {
+        if (loginButton3rdParty == null)
+            loginButton3rdParty = new UiSelector().resourceId("de.telekom.mail:id/tp_create_btn_forward").makeUiObject();
+        return loginButton3rdParty;
     }
 
     public UiObject signInGmailHeader() {
