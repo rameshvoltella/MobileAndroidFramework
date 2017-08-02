@@ -12,16 +12,12 @@ public class Experiment2Test extends TestManager {
 
     @Before
     public void login() {
-//        mail.loginview.loginWitCorrectCredentials("emma.test1", "1234test");
         mail.loginview.generalLogin("emma.test1@t-online.de", "1234test", 1);
     }
 
     @Test
     public void testNou2() {
         testInfo.id("test2").name("Send an e-mail and verify if it appears in Inbox").suite("TestPrimer");
-        mail.alerts.tapAllowAccessContacts();
-        mail.alerts.tapAllowAccessContacts();
-        mail.alerts.clickOkAdsDisclaimerInbox();
         mail.mailList.tapComposeBtnMailList();
         mail.composer.sendKeysToAn("emma.test1@t-online.de");
         Android.driver.pressKeyCode(KEYCODE_ENTER);

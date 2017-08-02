@@ -6,11 +6,11 @@ import tests.ExperimentTest;
 import tests.Experiment2Test;
 
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-        ExperimentTest.class,
-        Experiment2Test.class
-})
-public class TestPrimer {
-
-}
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses({
+//        ExperimentTest.class,
+//        Experiment2Test.class
+//})
+//public class TestPrimer {
+//
+//}
