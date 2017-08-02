@@ -22,9 +22,9 @@ import java.util.Set;
 
 public class DriverManagerIOS {
 
-    private static String nodeJS = "C:/nodejs/node.exe";
-    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
-    //    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+//    private static String nodeJS = "/usr/local/bin/node.exe";
+    private static String nodeJS = "/usr/local/Cellar/node/6.8.0/bin/node";
+    private static String appiumJS = "/usr/local/lib/node_modules/appium/build/lib/main.js";
     private static DriverService service;
     private static String deviceID;
 
@@ -39,9 +39,8 @@ public class DriverManagerIOS {
         caps.setCapability("platformName", "iOS");
         caps.setCapability("platformVersion", "10.3.2");
         caps.setCapability("deviceName", deviceID);
-        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
-//        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
-        caps.setCapability("udid", "device UDID");
+        caps.setCapability("app", "/Users/Shared/Appium/TelekomMail-VTU-Universal.ipa");
+        caps.setCapability("udid", "2ccf30dd21fa31a77967a66580e6c7ee62ecce88");
         caps.setCapability("newCommandTimeout", 600);
         caps.setCapability("automationName", "XCUITest");
         caps.setCapability(MobileCapabilityType.ROTATABLE, true);
@@ -56,7 +55,7 @@ public class DriverManagerIOS {
     private static URL host(String deviceID) throws MalformedURLException {
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
-            hosts.put("UDID of yur device", new URL("http://127.0.0.1:4723/wd/hub"));
+            hosts.put("2ccf30dd21fa31a77967a66580e6c7ee62ecce88", new URL("http://127.0.0.1:4723/wd/hub"));
         }
         return hosts.get(deviceID);
     }
@@ -74,7 +73,7 @@ public class DriverManagerIOS {
     }
 
     public static void createiOSDriver() throws MalformedURLException {
-        String device = "device UDID";
+        String device = "2ccf30dd21fa31a77967a66580e6c7ee62ecce88";
         try {
             deviceID = device;
             if (useDevice(deviceID)) {

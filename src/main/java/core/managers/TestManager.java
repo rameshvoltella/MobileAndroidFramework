@@ -47,6 +47,7 @@ public class TestManager {
 
     @After
     public void cleanAfterTest() {
-        DriverManagerAndroid.killDriver();
+//        DriverManagerAndroid.killDriver();
+        DriverManagerIOS.killIOSDriver();
     }
 }
