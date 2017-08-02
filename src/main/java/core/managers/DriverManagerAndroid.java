@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 
-public class DriverManager {
+public class DriverManagerAndroid {
 
     private static String nodeJS = "C:/nodejs/node.exe";
     private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";

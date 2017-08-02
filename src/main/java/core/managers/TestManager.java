@@ -41,11 +41,12 @@ public class TestManager {
     @Before
     public void before() throws MalformedURLException {
         testInfo.reset();
-        DriverManager.createDriver();
+//        DriverManagerAndroid.createDriver();
+        DriverManagerIOS.createiOSDriver();
     }
 
     @After
     public void cleanAfterTest() {
-        DriverManager.killDriver();
+        DriverManagerAndroid.killDriver();
     }
 }
