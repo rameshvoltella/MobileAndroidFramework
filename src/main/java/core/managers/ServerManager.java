@@ -102,7 +102,7 @@ public class ServerManager {
         } else {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
-                    "C:\\Users\\lumihai\\Desktop\\localJason.txt"));
+                    "/Users/Shared/Jenkins/Downloads/MobileAndroidFramework/localJasonIOS.TXT"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("DeviceID");
             return name;

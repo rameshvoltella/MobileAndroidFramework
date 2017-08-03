@@ -20,6 +20,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Set;
 
+import static core.managers.ServerManager.getDeviceId;
+
 public class DriverManagerIOS {
 
     private static String nodeJS = "/usr/local/Cellar/node/6.8.0/bin/node";
@@ -51,15 +53,16 @@ public class DriverManagerIOS {
         return caps;
     }
 
-    private static URL host(String deviceID) throws MalformedURLException {
+    private static URL host(String deviceID) throws IOException, ParseException {
+        String UDID = getDeviceId();
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
-            hosts.put("2ccf30dd21fa31a77967a66580e6c7ee62ecce88", new URL("http://127.0.0.1:4723/wd/hub"));
+            hosts.put(UDID, new URL("http://127.0.0.1:4723/wd/hub"));
         }
         return hosts.get(deviceID);
     }
 
-    private static DriverService createService() throws MalformedURLException {
+    private static DriverService createService() throws IOException, ParseException {
         service = new AppiumServiceBuilder()
                 .usingDriverExecutable(new File(nodeJS))
                 .withAppiumJS(new File(appiumJS))
@@ -71,8 +74,8 @@ public class DriverManagerIOS {
         return service;
     }
 
-    public static void createiOSDriver() throws MalformedURLException {
-        String device = "2ccf30dd21fa31a77967a66580e6c7ee62ecce88";
+    public static void createiOSDriver() throws IOException, ParseException {
+        String device = getDeviceId();
         try {
             deviceID = device;
             if (useDevice(deviceID)) {
