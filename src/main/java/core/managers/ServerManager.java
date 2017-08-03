@@ -95,14 +95,14 @@ public class ServerManager {
         if (isWindows()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
-                    "C:\\Users\\lumihai\\Desktop\\localJason.txt"));
+                    "src\\test\\resources\\localJasonAndroid.txt"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("DeviceID");
             return name;
         } else {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
-                    "/Users/Shared/Jenkins/Downloads/MobileAndroidFramework/localJasonIOS.TXT"));
+                    "src\\test\\resources\\localJasonIOS.txt"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("DeviceID");
             return name;

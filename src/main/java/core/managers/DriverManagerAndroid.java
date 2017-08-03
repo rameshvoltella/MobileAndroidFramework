@@ -15,7 +15,6 @@ import org.openqa.selenium.remote.service.DriverService;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,26 +104,28 @@ public class DriverManagerAndroid {
         return service;
     }
 
-    public static void createDriver() throws MalformedURLException {
-        ArrayList<String> devices = getAvailableDevices();
-        for (String device : devices) {
-            try {
-                deviceID = device;
-                if (useDevice(deviceID)) {
-                    queueUp();
-                    gracePeriod();
-                    MyLogger.log.info("Trying to create new Driver for device: " + device);
-                    createService().start();
-                    Android.driver = new AndroidDriver(host(device), getCaps(device));
-                    Android.adb = new ADB(device);
-                    leaveQueue();
-                    break;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                //Ignore and try next device
+    public static void createDriver() throws IOException, ParseException {
+//        ArrayList<String> devices = getAvailableDevices();
+//        for (String device : devices) {
+
+        String device = getDeviceId();
+        try {
+            deviceID = device;
+            if (useDevice(deviceID)) {
+                queueUp();
+                gracePeriod();
+                MyLogger.log.info("Trying to create new Driver for device: " + device);
+                createService().start();
+                Android.driver = new AndroidDriver(host(device), getCaps(device));
+                Android.adb = new ADB(device);
+                leaveQueue();
+//                    break;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Ignore and try next device
         }
+//        }
     }
 
     public static void killDriver() {
