@@ -42,7 +42,7 @@ public class DriverManagerIOS {
         caps.setCapability("udid", "2ccf30dd21fa31a77967a66580e6c7ee62ecce88");
         caps.setCapability("newCommandTimeout", 600);
         caps.setCapability("automationName", "XCUITest");
-        caps.setCapability(MobileCapabilityType.ROTATABLE, true);
+//        caps.setCapability(MobileCapabilityType.ROTATABLE, true);
         caps.setCapability("wdaConnectionTimeout", 60000);
         caps.setCapability("resetOnSessionStartOnly", true);
         caps.setCapability("useNewWDA", true);
