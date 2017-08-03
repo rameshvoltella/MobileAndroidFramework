@@ -56,8 +56,18 @@ public class TestManager {
     }
 
     @After
-    public void cleanAfterTest() {
-        DriverManagerAndroid.killDriver();
-//        DriverManagerIOS.killIOSDriver();
+    public void cleanAfterTest() throws Exception {
+        if (isWindows()) {
+            MyLogger.log.info("Driver creation started for Windows Environment");
+            DriverManagerAndroid.killDriver();
+        } else if (isMac()) {
+            MyLogger.log.info("Driver creation started for Mac Environment");
+            DriverManagerIOS.killIOSDriver();
+        } else {
+            MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
+            throw new Exception("Setup is ran on other environment; no Windows or Mac could be identified");
+
+        }
     }
+
 }

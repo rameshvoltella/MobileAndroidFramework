@@ -36,7 +36,7 @@ public class ServerManager {
 
     public static String getOS() {
 //        if (OS == null) OS = System.getenv("os.name");
-        MyLogger.log.info("Running command to see if it iw Windows or Mac environment");
+        MyLogger.log.info("Running command to see if it is Windows or Mac environment");
         if (OS == null) OS = System.getProperty("os.name");
         MyLogger.log.info("Detected OS is: " + OS);
         return OS;

@@ -22,7 +22,6 @@ import java.util.Set;
 
 public class DriverManagerIOS {
 
-//    private static String nodeJS = "/usr/local/bin/node.exe";
     private static String nodeJS = "/usr/local/Cellar/node/6.8.0/bin/node";
     private static String appiumJS = "/usr/local/lib/node_modules/appium/build/lib/main.js";
     private static DriverService service;
@@ -37,7 +36,7 @@ public class DriverManagerIOS {
         DesiredCapabilities caps = new DesiredCapabilities();
 
         caps.setCapability("platformName", "iOS");
-        caps.setCapability("platformVersion", "10.3.2");
+        caps.setCapability("platformVersion", "10.3.3");
         caps.setCapability("deviceName", deviceID);
         caps.setCapability("app", "/Users/Shared/Appium/TelekomMail-VTU-Universal.ipa");
         caps.setCapability("udid", "2ccf30dd21fa31a77967a66580e6c7ee62ecce88");
