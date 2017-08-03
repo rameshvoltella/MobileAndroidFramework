@@ -47,7 +47,7 @@ public class DriverManagerIOS {
         caps.setCapability("wdaConnectionTimeout", 60000);
         caps.setCapability("resetOnSessionStartOnly", true);
         caps.setCapability("useNewWDA", true);
-        caps.setCapability("commandTimeouts", "120000");
+        caps.setCapability("commandTimeouts", "130000");
 
         return caps;
     }
