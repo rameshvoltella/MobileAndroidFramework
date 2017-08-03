@@ -12,7 +12,8 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import java.net.MalformedURLException;
+import static core.managers.ServerManager.isMac;
+import static core.managers.ServerManager.isWindows;
 
 
 public class TestManager {
@@ -22,7 +23,7 @@ public class TestManager {
 
     @Rule
     public Retry retry = new Retry(1);
-//    public Retry retry = new Retry(3);
+    //    public Retry retry = new Retry(3);
     @Rule
     public TestRule listen = new TestWatcher() {
         @Override
@@ -39,15 +40,24 @@ public class TestManager {
     };
 
     @Before
-    public void before() throws MalformedURLException {
+    public void before() throws Exception {
         testInfo.reset();
-//        DriverManagerAndroid.createDriver();
-        DriverManagerIOS.createiOSDriver();
+        if (isWindows()) {
+            MyLogger.log.info("Driver creation started for Windows Environment");
+            DriverManagerAndroid.createDriver();
+        } else if (isMac()) {
+            MyLogger.log.info("Driver creation started for Mac Environment");
+            DriverManagerIOS.createiOSDriver();
+        } else {
+            MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
+            throw new Exception("Setup is ran on other environment; no Windows or Mac could be identified");
+
+        }
     }
 
     @After
     public void cleanAfterTest() {
-//        DriverManagerAndroid.killDriver();
-        DriverManagerIOS.killIOSDriver();
+        DriverManagerAndroid.killDriver();
+//        DriverManagerIOS.killIOSDriver();
     }
 }

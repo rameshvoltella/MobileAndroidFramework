@@ -25,8 +25,8 @@ import java.util.Set;
 public class DriverManagerAndroid {
 
     private static String nodeJS = "C:/nodejs/node.exe";
-    //    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
-    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    //    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
     private static DriverService service;
     private static String deviceID;
 
@@ -39,18 +39,8 @@ public class DriverManagerAndroid {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", deviceID);
         caps.setCapability("platformName", "Android");
-//        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
-        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
-//        caps.setCapability("device", "Simulator");
+        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
         caps.setCapability("automationName", "uiautomator2");
-//        caps.setCapability("platformVersion", "6.0");
-//        caps.setCapability("newCommandTimeout", 120);
-//        caps.setCapability("udid", "192.168.92.102:5555");
-//        capabilities.setCapability("fullReset", true);
-//        capabilities.setCapability("appActivity", "com.android.calendar.AllInOneActivity");
-//        capabilities.setCapability("appPackage", "com.underwood.calendar_beta");
-//        caps.setCapability("app", app.getAbsolutePath());
-//        caps.setCapability("clearSystemFiles ", true);
         return caps;
     }
 

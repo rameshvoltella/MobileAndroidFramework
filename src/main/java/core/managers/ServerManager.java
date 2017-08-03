@@ -1,5 +1,7 @@
 package core.managers;
 
+import core.MyLogger;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -33,16 +35,19 @@ public class ServerManager {
     }
 
     public static String getOS() {
-        if (OS == null) OS = System.getenv("os.name");
+//        if (OS == null) OS = System.getenv("os.name");
+        MyLogger.log.info("Running command to see if it iw Windows or Mac environment");
+        if (OS == null) OS = System.getProperty("os.name");
+        MyLogger.log.info("Detected OS is: " + OS);
         return OS;
     }
 
     public static boolean isWindows() {
-        return getOS().startsWith("Windows");
+        return getOS().contains("Windows");
     }
 
     public static boolean isMac() {
-        return getOS().startsWith("Mac");
+        return getOS().contains("Mac");
     }
 
     public static String runCommand(String command) {
