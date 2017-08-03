@@ -15,6 +15,8 @@ public class ServerManager {
     public static final String OS_VERSION = getOsVersion();
     private static String OS;
     private static String ANDROID_HOME;
+    private static String sepparator = null;
+    private static String nodeExecutable = null;
 
     private static String getOsVersion() {
         String value = System.getenv("OS_VERSION");
@@ -51,6 +53,26 @@ public class ServerManager {
 
     public static boolean isMac() {
         return getOS().contains("Mac");
+    }
+
+    public static String getOsSepparator() {
+        if (isWindows()) {
+            sepparator = "\\";
+        }
+        if (isMac()) {
+            sepparator = "/";
+        }
+        return sepparator;
+    }
+
+    public static String getNodeExecutable() {
+        if (isWindows()) {
+            nodeExecutable = "node.exe";
+        }
+        if (isMac()) {
+            nodeExecutable = "node";
+        }
+        return nodeExecutable;
     }
 
     public static String runCommand(String command) {
@@ -126,6 +148,52 @@ public class ServerManager {
             String name = (String) jsonObject.get("AppiumURL");
             return name;
         }
+
+    }
+
+    public static String getIP() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src\\test\\resources\\localJasonAndroid.txt"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("ip");
+        return name;
+
+    }
+    public static String getBootstrap() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src\\test\\resources\\localJasonAndroid.txt"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("BootstratPort");
+        return name;
+
+    }
+    public static String getChromedriver() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src\\test\\resources\\localJasonAndroid.txt"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("ChromePort");
+        return name;
+
+    }
+    public static String getPort() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src\\test\\resources\\localJasonAndroid.txt"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("port");
+        return name;
+
+    }
+    public static String getIosWebKit() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src\\test\\resources\\localJasonAndroid.txt"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("IosWebKit");
+        return name;
 
     }
 }

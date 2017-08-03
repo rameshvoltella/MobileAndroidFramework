@@ -1,5 +1,11 @@
 {
-    "DeviceID": "192.168.92.101:5555",
-    "AppiumURL": "http://127.0.0.1:4723/wd/hub"
+    "DeviceID": "emulator-5554",
+    "AppiumURL": "http://127.0.0.1:4723/wd/hub",
+    "BootstratPort": "9999",
+    "ChromePort": "7777",
+    "ip": "127.0.0.1",
+    "port": "8888",
+    "IosWebKit": 6666,
+    "sessionOverride":"true"
 
 }
