@@ -109,4 +109,23 @@ public class ServerManager {
         }
 
     }
+
+    public static String getCustomURL() throws IOException, ParseException {
+        if (isWindows()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src\\test\\resources\\localJasonAndroid.txt"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("AppiumURL");
+            return name;
+        } else {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src\\test\\resources\\localJasonIOS.txt"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("AppiumURL");
+            return name;
+        }
+
+    }
 }

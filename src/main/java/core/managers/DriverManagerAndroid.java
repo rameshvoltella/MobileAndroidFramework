@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import static core.managers.ServerManager.getCustomURL;
 import static core.managers.ServerManager.getDeviceId;
 
 
@@ -47,11 +48,12 @@ public class DriverManagerAndroid {
 
     private static URL host(String deviceID) throws IOException, ParseException {
         String UDID = getDeviceId();
+        String URL_APPIUM = getCustomURL();
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
 //            hosts.put("192.168.66.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
 //            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
-            hosts.put(UDID, new URL("http://127.0.0.1:4723/wd/hub"));
+            hosts.put(UDID, new URL(URL_APPIUM));
 //            hosts.put("emulator-5556", new URL("http://127.0.0.1:4723/wd/hub"));
         }
         return hosts.get(deviceID);
