@@ -1,6 +1,9 @@
 package core.managers;
 
 import core.MyLogger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.Scanner;
@@ -86,5 +89,24 @@ public class ServerManager {
         } catch (IOException error) {
             error.printStackTrace();
         }
+    }
+
+    public static String getDeviceId() throws IOException, ParseException {
+        if (isWindows()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "C:\\Users\\lumihai\\Desktop\\localJason.txt"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("DeviceID");
+            return name;
+        } else {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "C:\\Users\\lumihai\\Desktop\\localJason.txt"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("DeviceID");
+            return name;
+        }
+
     }
 }

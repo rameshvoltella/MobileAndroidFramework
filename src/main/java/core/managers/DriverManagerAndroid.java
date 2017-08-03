@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import static core.managers.ServerManager.getDeviceId;
+
 
 public class DriverManagerAndroid {
 
@@ -44,12 +46,13 @@ public class DriverManagerAndroid {
         return caps;
     }
 
-    private static URL host(String deviceID) throws MalformedURLException {
+    private static URL host(String deviceID) throws IOException, ParseException {
+        String UDID = getDeviceId();
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
 //            hosts.put("192.168.66.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
 //            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
-            hosts.put("emulator-5554", new URL("http://127.0.0.1:4723/wd/hub"));
+            hosts.put(UDID, new URL("http://127.0.0.1:4723/wd/hub"));
 //            hosts.put("emulator-5556", new URL("http://127.0.0.1:4723/wd/hub"));
         }
         return hosts.get(deviceID);
@@ -90,7 +93,7 @@ public class DriverManagerAndroid {
         return avaiableDevices;
     }
 
-    private static DriverService createService() throws MalformedURLException {
+    private static DriverService createService() throws IOException, ParseException {
         service = new AppiumServiceBuilder()
                 .usingDriverExecutable(new File(nodeJS))
                 .withAppiumJS(new File(appiumJS))

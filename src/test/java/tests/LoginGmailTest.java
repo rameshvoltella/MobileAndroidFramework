@@ -8,7 +8,7 @@ public class LoginGmailTest extends TestManager {
 
     @Before
     public void loginGmail() {
-//        mail.loginview.generalLogin("testingbriefcase@gmail.com", "testingbriefcase", 0);
+        mail.loginview.generalLogin("testingbriefcase@gmail.com", "testingbriefcase", 0);
 //        mail.loginview.generalLogin("emma.cluj@web.de", "test1234", 0);
     }
 
