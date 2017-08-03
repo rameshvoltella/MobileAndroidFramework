@@ -1,5 +1,5 @@
 {
-    "DeviceID": "emulator-5554",
+    "DeviceID": "192.168.92.101:5555",
     "AppiumURL": "http://127.0.0.1:4723/wd/hub"
 
 }

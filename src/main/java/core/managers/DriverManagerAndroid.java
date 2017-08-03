@@ -107,19 +107,6 @@ public class DriverManagerAndroid {
         return service;
     }
 
-    private static DriverService createService2() throws IOException, ParseException {
-        service = new AppiumServiceBuilder()
-                .usingDriverExecutable(new File(nodeJS))
-                .withAppiumJS(new File(appiumJS))
-                .withIPAddress("127.0.0.1")
-                .usingAnyFreePort()
-                .withArgument(Arg.TIMEOUT, "120")
-                .withArgument(Arg.LOG_LEVEL, "warn")
-                .build();
-        MyLogger.log.info("Created service details: " + service);
-        return service;
-    }
-
     public static void createDriver() throws IOException, ParseException {
 //        ArrayList<String> devices = getAvailableDevices();
 //        for (String device : devices) {
@@ -131,7 +118,7 @@ public class DriverManagerAndroid {
                 queueUp();
                 gracePeriod();
                 MyLogger.log.info("Trying to create new Driver for device: " + device);
-                createService2().start();
+                createService().start();
                 Android.driver = new AndroidDriver(host(device), getCaps(device));
                 Android.adb = new ADB(device);
                 leaveQueue();
