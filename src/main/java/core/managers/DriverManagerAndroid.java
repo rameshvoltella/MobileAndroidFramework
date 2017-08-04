@@ -51,7 +51,6 @@ public class DriverManagerAndroid {
     private static URL host(String deviceID) throws IOException, ParseException {
         String UDID = getDeviceId();
 //        String URL_APPIUM1 = getCustomURL();
-//        String URL_APPIUM = "http://" + getIP() + ":" + getPort() + "/wd/hub";
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
             hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
@@ -121,9 +120,9 @@ public class DriverManagerAndroid {
                 gracePeriod();
                 MyLogger.log.info("Trying to create new Driver for device: " + device);
                 startLocalAppiumServer();
+                Android.driver = new AndroidDriver(getHubUrl(), getCaps(device));
 //                createService().start();
 //                Android.driver = new AndroidDriver(host(device), getCaps(device));
-                Android.driver = new AndroidDriver(getHubUrl(), getCaps(device));
                 Android.adb = new ADB(device);
                 leaveQueue();
 //                    break;

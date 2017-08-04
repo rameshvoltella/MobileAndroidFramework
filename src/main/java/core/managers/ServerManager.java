@@ -117,14 +117,14 @@ public class ServerManager {
         if (isWindows()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
-                    "src\\test\\resources\\localJasonAndroid.txt"));
+                    "src\\test\\resources\\LocalJsonAndroid.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("DeviceID");
             return name;
         } else {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
-                    "src\\test\\resources\\localJasonIOS.txt"));
+                    "src\\test\\resources\\LocalJsonAndroid.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("DeviceID");
             return name;
@@ -136,14 +136,14 @@ public class ServerManager {
         if (isWindows()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
-                    "src\\test\\resources\\localJasonAndroid.txt"));
+                    "src\\test\\resources\\LocalJsonAndroid.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("AppiumURL");
             return name;
         } else {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
-                    "src\\test\\resources\\localJasonIOS.txt"));
+                    "src\\test\\resources\\LocalJsonAndroid.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("AppiumURL");
             return name;
@@ -154,7 +154,7 @@ public class ServerManager {
     public static String getIP() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
-                "src\\test\\resources\\localJasonAndroid.txt"));
+                "src\\test\\resources\\LocalJsonAndroid.json"));
         JSONObject jsonObject = (JSONObject) obj;
         String name = (String) jsonObject.get("ip");
         return name;
@@ -163,7 +163,7 @@ public class ServerManager {
     public static String getBootstrap() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
-                "src\\test\\resources\\localJasonAndroid.txt"));
+                "src\\test\\resources\\LocalJsonAndroid.json"));
         JSONObject jsonObject = (JSONObject) obj;
         String name = (String) jsonObject.get("BootstratPort");
         return name;
@@ -172,7 +172,7 @@ public class ServerManager {
     public static String getChromedriver() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
-                "src\\test\\resources\\localJasonAndroid.txt"));
+                "src\\test\\resources\\LocalJsonAndroid.json"));
         JSONObject jsonObject = (JSONObject) obj;
         String name = (String) jsonObject.get("ChromePort");
         return name;
@@ -181,7 +181,7 @@ public class ServerManager {
     public static String getPort() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
-                "src\\test\\resources\\localJasonAndroid.txt"));
+                "src\\test\\resources\\LocalJsonAndroid.json"));
         JSONObject jsonObject = (JSONObject) obj;
         String name = (String) jsonObject.get("port");
         return name;
@@ -190,7 +190,7 @@ public class ServerManager {
     public static String getIosWebKit() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
-                "src\\test\\resources\\localJasonAndroid.txt"));
+                "src\\test\\resources\\LocalJsonAndroid.json"));
         JSONObject jsonObject = (JSONObject) obj;
         String name = (String) jsonObject.get("IosWebKit");
         return name;
