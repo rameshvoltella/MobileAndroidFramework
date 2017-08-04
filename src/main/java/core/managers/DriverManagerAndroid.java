@@ -8,11 +8,8 @@ import core.constants.Arg;
 import core.constants.Resources;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
-import io.appium.java_client.service.local.flags.AndroidServerFlag;
-import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.service.DriverService;
 
@@ -25,14 +22,14 @@ import java.util.Set;
 
 import static core.customappium.StartCustomAppium.getHubUrl;
 import static core.customappium.StartCustomAppium.startLocalAppiumServer;
-import static core.managers.ServerManager.*;
+import static core.managers.ServerManager.getDeviceId;
 
 
 public class DriverManagerAndroid {
 
     private static String nodeJS = "C:/nodejs/node.exe";
-    //    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
-    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    //    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
     private static DriverService service;
     private static String deviceID;
 
@@ -45,21 +42,21 @@ public class DriverManagerAndroid {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", deviceID);
         caps.setCapability("platformName", "Android");
-//        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
-        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
+        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
+//        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
         caps.setCapability("automationName", "uiautomator2");
         return caps;
     }
 
     private static URL host(String deviceID) throws IOException, ParseException {
         String UDID = getDeviceId();
-        String URL_APPIUM1 = getCustomURL();
-        String URL_APPIUM = "http://" + getIP() + ":" + getPort() + "/wd/hub";
+//        String URL_APPIUM1 = getCustomURL();
+//        String URL_APPIUM = "http://" + getIP() + ":" + getPort() + "/wd/hub";
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
-//            hosts.put("192.168.66.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
-//            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
-            hosts.put(UDID, new URL(URL_APPIUM1));
+            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
+//            hosts.put(UDID, new URL(getCustomURL()));
+//            hosts.put(UDID, new URL(URL_APPIUM1));
         }
         return hosts.get(deviceID);
     }

@@ -1,12 +1,10 @@
 package core.customappium;
 
 import core.MyLogger;
-import core.managers.DriverManagerAndroid;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.AndroidServerFlag;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import io.appium.java_client.service.local.flags.IOSServerFlag;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -22,8 +20,8 @@ public class StartCustomAppium {
 
     private static String hubUrl;
     private static String nodeJS = "C:/nodejs/node.exe";
-    //    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
-    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+//    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
 
     public static AppiumDriverLocalService startLocalAppiumServer() throws IOException, ParseException {
         verifyEnvVars();
@@ -88,8 +86,8 @@ public class StartCustomAppium {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", getDeviceId());
         caps.setCapability("platformName", "Android");
-//        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
-        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
+        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
+//        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
         caps.setCapability("automationName", "uiautomator2");
         return caps;
     }
