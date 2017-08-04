@@ -38,7 +38,7 @@ public class DriverManagerAndroid {
     private static HashMap<String, URL> hosts;
     private static String unlockPackage = "de.telekom.mail";
 
-    private static DesiredCapabilities getCaps(String deviceID) {
+    private static DesiredCapabilities getCaps(String deviceID) throws IOException, ParseException {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -47,6 +47,7 @@ public class DriverManagerAndroid {
         caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
 //        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
         caps.setCapability("automationName", "uiautomator2");
+        caps.setCapability("udid", getDeviceId());
         return caps;
     }
 
