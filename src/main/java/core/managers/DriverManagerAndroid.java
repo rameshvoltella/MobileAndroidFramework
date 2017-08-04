@@ -12,6 +12,7 @@ import io.appium.java_client.service.local.flags.AndroidServerFlag;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.service.DriverService;
 
@@ -96,7 +97,7 @@ public class DriverManagerAndroid {
         return avaiableDevices;
     }
 
-    private static DriverService createService() throws IOException, ParseException {
+    private static AppiumDriverLocalService createService() throws IOException, ParseException {
 //        service = new AppiumServiceBuilder()
 //                .usingDriverExecutable(new File(nodeJS))
 //                .withAppiumJS(new File(appiumJS))
@@ -119,9 +120,10 @@ public class DriverManagerAndroid {
                                 getBootstrap())
                         .withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, getChromedriver())
                         //.withArgument(GeneralServerFlag.COMMAND_TIMEOUT, "60")
-                        .withStartUpTimeOut(120, TimeUnit.SECONDS));
+                        .withStartUpTimeOut(120, TimeUnit.SECONDS)
+                        .withCapabilities(getCaps(deviceID)));
         MyLogger.log.info("New Appium service: " + service.getUrl());
-        return service;
+        return (AppiumDriverLocalService) service;
     }
 
     public static void createDriver() throws IOException, ParseException {
@@ -138,7 +140,8 @@ public class DriverManagerAndroid {
 //                startLocalAppiumServer();
 //                Android.driver = new AndroidDriver(getHubUrl(), getCaps(device));
                 createService().start();
-                Android.driver = new AndroidDriver(host(device), getCaps(device));
+//                Android.driver = new AndroidDriver(host(device), getCaps(device));
+                Android.driver = getNewDriver((AppiumDriverLocalService) service, getCaps(device));
                 Android.adb = new ADB(device);
                 leaveQueue();
 //                    break;
@@ -237,5 +240,17 @@ public class DriverManagerAndroid {
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static AndroidDriver getNewDriver(AppiumDriverLocalService service2, Capabilities capabilities) {
+        AndroidDriver ad = null;
+        try {
+            ad = new AndroidDriver(service2, capabilities);
+        } catch (Throwable t) {
+            // if it failed first time, try again
+            ad = new AndroidDriver(service2, capabilities);
+        }
+
+        return ad;
     }
 }
