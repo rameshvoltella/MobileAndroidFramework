@@ -4,10 +4,12 @@ import api.android.Android;
 import core.ADB;
 import core.MyLogger;
 import core.Timer;
-import core.constants.Arg;
 import core.constants.Resources;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.AndroidServerFlag;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -19,10 +21,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
-import static core.customappium.StartCustomAppium.getHubUrl;
-import static core.customappium.StartCustomAppium.startLocalAppiumServer;
-import static core.managers.ServerManager.getDeviceId;
+import static core.managers.ServerManager.*;
 
 
 public class DriverManagerAndroid {
@@ -53,7 +54,7 @@ public class DriverManagerAndroid {
 //        String URL_APPIUM1 = getCustomURL();
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
-            hosts.put("192.168.92.101:5555", new URL("http://127.0.0.1:4723/wd/hub"));
+            hosts.put(UDID, new URL("http://127.0.0.1:4723/wd/hub"));
 //            hosts.put(UDID, new URL(getCustomURL()));
 //            hosts.put(UDID, new URL(URL_APPIUM1));
         }
@@ -96,15 +97,30 @@ public class DriverManagerAndroid {
     }
 
     private static DriverService createService() throws IOException, ParseException {
-        service = new AppiumServiceBuilder()
-                .usingDriverExecutable(new File(nodeJS))
-                .withAppiumJS(new File(appiumJS))
-                .withIPAddress(host(deviceID).toString().split(":")[1].replace("//", ""))
-                .usingPort(Integer.parseInt(host(deviceID).toString().split(":")[2].replace("/wd/hub", "")))
-                .withArgument(Arg.TIMEOUT, "120")
-                .withArgument(Arg.LOG_LEVEL, "warn")
-                .build();
-        MyLogger.log.info("Created service details: " + service);
+//        service = new AppiumServiceBuilder()
+//                .usingDriverExecutable(new File(nodeJS))
+//                .withAppiumJS(new File(appiumJS))
+//                .withIPAddress(host(deviceID).toString().split(":")[1].replace("//", ""))
+//                .usingPort(Integer.parseInt(host(deviceID).toString().split(":")[2].replace("/wd/hub", "")))
+//                .withArgument(Arg.TIMEOUT, "120")
+//                .withArgument(Arg.LOG_LEVEL, "warn")
+//                .build();
+//        MyLogger.log.info("Created service details: " + service);
+//        return service;
+
+        service = AppiumDriverLocalService
+                .buildService(new AppiumServiceBuilder()
+                        .usingAnyFreePort()
+                        .withAppiumJS(new File(appiumJS))
+                        .usingDriverExecutable(new File(nodeJS))
+                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+                        .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,
+                                getBootstrap())
+                        .withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, getChromedriver())
+                        //.withArgument(GeneralServerFlag.COMMAND_TIMEOUT, "60")
+                        .withStartUpTimeOut(120, TimeUnit.SECONDS));
+        MyLogger.log.info("New Appium service: " + service.getUrl());
         return service;
     }
 
@@ -119,10 +135,10 @@ public class DriverManagerAndroid {
                 queueUp();
                 gracePeriod();
                 MyLogger.log.info("Trying to create new Driver for device: " + device);
-                startLocalAppiumServer();
-                Android.driver = new AndroidDriver(getHubUrl(), getCaps(device));
-//                createService().start();
-//                Android.driver = new AndroidDriver(host(device), getCaps(device));
+//                startLocalAppiumServer();
+//                Android.driver = new AndroidDriver(getHubUrl(), getCaps(device));
+                createService().start();
+                Android.driver = new AndroidDriver(host(device), getCaps(device));
                 Android.adb = new ADB(device);
                 leaveQueue();
 //                    break;
@@ -140,14 +156,14 @@ public class DriverManagerAndroid {
             Android.driver.quit();
             Android.adb.uninstallApp(unlockPackage);
 //            Android.adb.killEmulator();
-            try {
-                startLocalAppiumServer().stop();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-//            service.stop();
+//            try {
+//                startLocalAppiumServer().stop();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+            service.stop();
         } else MyLogger.log.info("Android Driver is not initialized, nothing to kill");
     }
 
