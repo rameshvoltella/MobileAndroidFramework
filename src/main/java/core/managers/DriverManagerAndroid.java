@@ -18,6 +18,7 @@ import org.openqa.selenium.remote.service.DriverService;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class DriverManagerAndroid {
     private static String nodeJS = "C:/nodejs/node.exe";
     private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
     //    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    private static String hubUrl;
     private static DriverService service;
     private static String deviceID;
 
@@ -110,7 +112,7 @@ public class DriverManagerAndroid {
                         .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,
                                 getBootstrap())
 //                        .withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, getChromedriver())
-                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+//                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
                         .withArgument(GeneralServerFlag.LOG_LEVEL, "info")
 //                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
                         //.withArgument(GeneralServerFlag.COMMAND_TIMEOUT, "60")
@@ -135,8 +137,8 @@ public class DriverManagerAndroid {
                 gracePeriod();
                 MyLogger.log.info("Trying to create new Driver for device: " + device);
 //                startLocalAppiumServer();
-//                Android.driver = new AndroidDriver(getHubUrl(), getCaps(device));
                 createService().start();
+//                Android.driver = new AndroidDriver(getHubUrl(), getCaps());
                 Android.driver = getNewDriver((AppiumDriverLocalService) service, getCaps());
                 Android.adb = new ADB(device);
                 leaveQueue();
@@ -248,5 +250,16 @@ public class DriverManagerAndroid {
         }
 
         return ad;
+    }
+
+    public static URL getHubUrl() throws IOException, ParseException {
+        URL url = null;
+        hubUrl = "http://" + getIP() + ":" + getPort() + "/wd/hub";
+        try {
+            url = new URL(hubUrl);
+        } catch (MalformedURLException e) {
+            MyLogger.log.error(e.getMessage());
+        }
+        return url;
     }
 }
