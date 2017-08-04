@@ -38,11 +38,11 @@ public class DriverManagerAndroid {
     private static HashMap<String, URL> hosts;
     private static String unlockPackage = "de.telekom.mail";
 
-    private static DesiredCapabilities getCaps(String deviceID) throws IOException, ParseException {
+    private static DesiredCapabilities getCaps() throws IOException, ParseException {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("deviceName", deviceID);
+        caps.setCapability("deviceName", getDeviceId());
         caps.setCapability("platformName", "Android");
         caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
 //        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
@@ -99,16 +99,6 @@ public class DriverManagerAndroid {
     }
 
     private static AppiumDriverLocalService createService() throws IOException, ParseException {
-//        service = new AppiumServiceBuilder()
-//                .usingDriverExecutable(new File(nodeJS))
-//                .withAppiumJS(new File(appiumJS))
-//                .withIPAddress(host(deviceID).toString().split(":")[1].replace("//", ""))
-//                .usingPort(Integer.parseInt(host(deviceID).toString().split(":")[2].replace("/wd/hub", "")))
-//                .withArgument(Arg.TIMEOUT, "120")
-//                .withArgument(Arg.LOG_LEVEL, "warn")
-//                .build();
-//        MyLogger.log.info("Created service details: " + service);
-//        return service;
 
         service = AppiumDriverLocalService
                 .buildService(new AppiumServiceBuilder()
@@ -122,7 +112,10 @@ public class DriverManagerAndroid {
                         .withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, getChromedriver())
                         //.withArgument(GeneralServerFlag.COMMAND_TIMEOUT, "60")
                         .withStartUpTimeOut(120, TimeUnit.SECONDS)
-                        .withCapabilities(getCaps(deviceID)));
+                        .withCapabilities(getCaps()));
+        MyLogger.log.info(String.format(
+                "Appium server running for device with UDID using bootstrap and chromedriverport",
+                getDeviceId(), getBootstrap(), getChromedriver()));
         MyLogger.log.info("New Appium service: " + service.getUrl());
         return (AppiumDriverLocalService) service;
     }
@@ -141,8 +134,7 @@ public class DriverManagerAndroid {
 //                startLocalAppiumServer();
 //                Android.driver = new AndroidDriver(getHubUrl(), getCaps(device));
                 createService().start();
-//                Android.driver = new AndroidDriver(host(device), getCaps(device));
-                Android.driver = getNewDriver((AppiumDriverLocalService) service, getCaps(device));
+                Android.driver = getNewDriver((AppiumDriverLocalService) service, getCaps());
                 Android.adb = new ADB(device);
                 leaveQueue();
 //                    break;
@@ -243,13 +235,13 @@ public class DriverManagerAndroid {
         }
     }
 
-    private static AndroidDriver getNewDriver(AppiumDriverLocalService service2, Capabilities capabilities) {
+    private static AndroidDriver getNewDriver(AppiumDriverLocalService service1, Capabilities capabilities) {
         AndroidDriver ad = null;
         try {
-            ad = new AndroidDriver(service2, capabilities);
+            ad = new AndroidDriver(service1, capabilities);
         } catch (Throwable t) {
             // if it failed first time, try again
-            ad = new AndroidDriver(service2, capabilities);
+            ad = new AndroidDriver(service1, capabilities);
         }
 
         return ad;
