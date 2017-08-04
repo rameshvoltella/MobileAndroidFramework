@@ -102,14 +102,17 @@ public class DriverManagerAndroid {
 
         service = AppiumDriverLocalService
                 .buildService(new AppiumServiceBuilder()
-                        .usingAnyFreePort()
-                        .withAppiumJS(new File(appiumJS))
                         .usingDriverExecutable(new File(nodeJS))
-                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+                        .withAppiumJS(new File(appiumJS))
+                        .withIPAddress("127.0.0.1")
+                        .usingAnyFreePort()
+                        .withArgument(GeneralServerFlag.ROBOT_ADDRESS, getDeviceId())
                         .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,
                                 getBootstrap())
-                        .withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, getChromedriver())
+//                        .withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, getChromedriver())
+                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
+                        .withArgument(GeneralServerFlag.LOG_LEVEL, "info")
+//                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
                         //.withArgument(GeneralServerFlag.COMMAND_TIMEOUT, "60")
                         .withStartUpTimeOut(120, TimeUnit.SECONDS)
                         .withCapabilities(getCaps()));
