@@ -55,12 +55,9 @@ public class DriverManagerAndroid {
 
     private static URL host(String deviceID) throws IOException, ParseException {
         String UDID = getDeviceId();
-//        String URL_APPIUM1 = getCustomURL();
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
             hosts.put(UDID, new URL("http://127.0.0.1:4723/wd/hub"));
-//            hosts.put(UDID, new URL(getCustomURL()));
-//            hosts.put(UDID, new URL(URL_APPIUM1));
         }
         return hosts.get(deviceID);
     }
@@ -114,20 +111,19 @@ public class DriverManagerAndroid {
 //                        .withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, getChromedriver())
 //                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
                         .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
-//                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
+                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
                         //.withArgument(GeneralServerFlag.COMMAND_TIMEOUT, "60")
                         .withStartUpTimeOut(120, TimeUnit.SECONDS)
                         .withCapabilities(getCaps()));
+        MyLogger.log.info("+++++++++++++++++++++++ STARTING APPIUM SERVER ++++++++++++++++++++++");
         MyLogger.log.info(String.format(
-                "Appium server running for device with UDID using bootstrap and chromedriverport",
-                getDeviceId(), getBootstrap(), getChromedriver()));
-        MyLogger.log.info("New Appium service: " + service.getUrl());
+                "Appium server running for device with UDID: " + getDeviceId() + " using bootstrap port: " + getBootstrap() + " and chromedriverport: " +
+                        getChromedriver()));
+        MyLogger.log.info("++++++++++++++++++ STARTED APPIUM SERVER ++++++++++++++++++: " + service.getUrl());
         return (AppiumDriverLocalService) service;
     }
 
     public static void createDriver() throws IOException, ParseException {
-//        ArrayList<String> devices = getAvailableDevices();
-//        for (String device : devices) {
 
         String device = getDeviceId();
         try {
@@ -136,19 +132,15 @@ public class DriverManagerAndroid {
                 queueUp();
                 gracePeriod();
                 MyLogger.log.info("Trying to create new Driver for device: " + device);
-//                startLocalAppiumServer();
-//                Android.driver = new AndroidDriver(getHubUrl(), getCaps());
                 createService().start();
                 Android.driver = getNewDriver((AppiumDriverLocalService) service, getCaps());
                 Android.adb = new ADB(device);
                 leaveQueue();
-//                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
             //Ignore and try next device
         }
-//        }
     }
 
     public static void killDriver() {
@@ -156,14 +148,6 @@ public class DriverManagerAndroid {
             MyLogger.log.info("Killing Android Driver");
             Android.driver.quit();
             Android.adb.uninstallApp(unlockPackage);
-//            Android.adb.killEmulator();
-//            try {
-//                startLocalAppiumServer().stop();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
             service.stop();
         } else MyLogger.log.info("Android Driver is not initialized, nothing to kill");
     }
