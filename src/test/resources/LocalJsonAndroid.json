@@ -1,11 +1,21 @@
 {
-  "DeviceID": "192.168.92.102:5555",
+  "DeviceID": "192.168.66.101:5555",
   "AppiumURL": "http://127.0.0.1:4723/wd/hub",
-  "BootstratPort": "9999",
-  "ChromePort": "7777",
-  "ip": "127.0.0.1",
+  "BootstratPort": "4757",
+  "ChromePort": "9517",
+  "platformName": "android",
+  "unicodeKeyboard": true,
+  "deviceName": "192.168.92.102:5555",
+  "deviceType": "Tablet",
+  "appLocation": "D:/Appium/apk/Emma-prodautomation.apk",
+  "deviceUDID": "192.168.92.102:5555",
+  "newCommandTimeout": 600,
+  "deviceOrientation": "PORTRAIT",
+  "fullReset": false,
+  "noReset": false,
+  "automationName": "Appium",
+  "ip": "127.0.0.2",
   "port": "8888",
   "IosWebKit": "6666",
-  "sessionOverride":"true"
-
+  "sessionOverride": "true"
 }

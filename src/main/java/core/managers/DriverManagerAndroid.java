@@ -31,8 +31,8 @@ import static core.managers.ServerManager.*;
 public class DriverManagerAndroid {
 
     private static String nodeJS = "C:/nodejs/node.exe";
-    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
-    //    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    //    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
     private static String hubUrl;
     private static DriverService service;
     private static String deviceID;
@@ -46,8 +46,8 @@ public class DriverManagerAndroid {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", getDeviceId());
         caps.setCapability("platformName", "Android");
-        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
-//        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
+//        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
+        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
         caps.setCapability("automationName", "uiautomator2");
         caps.setCapability("udid", getDeviceId());
         return caps;
@@ -106,14 +106,14 @@ public class DriverManagerAndroid {
                 .buildService(new AppiumServiceBuilder()
                         .usingDriverExecutable(new File(nodeJS))
                         .withAppiumJS(new File(appiumJS))
-                        .withIPAddress("127.0.0.1")
+                        .withIPAddress(getIP())
                         .usingAnyFreePort()
                         .withArgument(GeneralServerFlag.ROBOT_ADDRESS, getDeviceId())
                         .withArgument(AndroidServerFlag.BOOTSTRAP_PORT_NUMBER,
                                 getBootstrap())
 //                        .withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, getChromedriver())
 //                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
-                        .withArgument(GeneralServerFlag.LOG_LEVEL, "info")
+                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
 //                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
                         //.withArgument(GeneralServerFlag.COMMAND_TIMEOUT, "60")
                         .withStartUpTimeOut(120, TimeUnit.SECONDS)
@@ -137,8 +137,8 @@ public class DriverManagerAndroid {
                 gracePeriod();
                 MyLogger.log.info("Trying to create new Driver for device: " + device);
 //                startLocalAppiumServer();
-                createService().start();
 //                Android.driver = new AndroidDriver(getHubUrl(), getCaps());
+                createService().start();
                 Android.driver = getNewDriver((AppiumDriverLocalService) service, getCaps());
                 Android.adb = new ADB(device);
                 leaveQueue();
