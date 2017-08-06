@@ -13,7 +13,7 @@ public class Loginview implements Activity {
 
     public Object generalLogin(String username, String password, int index) {
         try {
-            loginviewUiObjects.accountpickertitle().waitToAppear(10);
+            loginviewUiObjects.accountpickertitle().waitToAppear(15);
             if (username.contains("t-online")) {
                 loginTelekomAccount(username, password);
             } else if (username.contains("gmail")) {
@@ -42,8 +42,8 @@ public class Loginview implements Activity {
         try {
             MyLogger.log.info("Add another Gmail account from login screen");
             loginviewUiObjects.addNewGmailAccount().waitToAppear(10).tap();
-            loginviewUiObjects.okBtnSelectGmail().waitToAppear(10).tap();
-            loginviewUiObjects.signInGmailHeader().waitToAppear(20);
+            loginviewUiObjects.okBtnSelectGmail().waitToAppear(15).tap();
+            loginviewUiObjects.signInGmailHeader().waitToAppear(25);
             MyLogger.log.info("Insert username new Gmail account: " + username);
             loginviewUiObjects.gmailUsernameInput().waitToAppear(20).typeText(username);
             loginviewUiObjects.gmailLoginUsernameNextButton().tap();
@@ -58,7 +58,7 @@ public class Loginview implements Activity {
             } catch (AssertionError e) {
                 //do nothing
             }
-            loginviewUiObjects.allowGmailNotification().waitToAppear(10).tap();
+            loginviewUiObjects.allowGmailNotification().waitToAppear(20).tap();
             MyLogger.log.info("New Gmail account was added and we are in Inbox: " + username);
             mail.alerts.tapAllowAccessContacts();
             mail.alerts.clickOkAdsDisclaimerInbox();

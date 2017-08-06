@@ -124,7 +124,10 @@ public class DriverManagerAndroid {
     }
 
     public static void createDriver() throws IOException, ParseException {
-
+        ArrayList connectedDevices = ADB.getConnectedDevices();
+        if (connectedDevices.size() == 0) {
+            throw new RuntimeException("Not a single device is available for testing at this time");
+        }
         String device = getDeviceId();
         try {
             deviceID = device;
@@ -146,9 +149,27 @@ public class DriverManagerAndroid {
     public static void killDriver() {
         if (Android.driver != null) {
             MyLogger.log.info("Killing Android Driver");
-            Android.driver.quit();
+            try {
+                Android.driver.quit();
+            } catch (Throwable t) {
+
+            }
+            try {
+                Android.driver.close();
+            } catch (Throwable t) {
+
+            }
             Android.adb.uninstallApp(unlockPackage);
-            service.stop();
+            try {
+                service.stop();
+            } catch (Throwable t) {
+
+            }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else MyLogger.log.info("Android Driver is not initialized, nothing to kill");
     }
 
