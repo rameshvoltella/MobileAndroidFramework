@@ -124,7 +124,7 @@ public class ServerManager {
         } else {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
-                    "/src/test/resources/localJsonIOS.json"));
+                    "src/test/resources/localJsonIOS.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("DeviceID");
             return name;
@@ -143,7 +143,7 @@ public class ServerManager {
         } else {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
-                    "/src/test/resources/localJsonIOS.json"));
+                    "src/test/resources/localJsonIOS.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("AppiumURL");
             return name;

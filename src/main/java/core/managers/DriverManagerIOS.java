@@ -20,6 +20,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Set;
 
+import static core.managers.ServerManager.getBootstrap;
+import static core.managers.ServerManager.getChromedriver;
 import static core.managers.ServerManager.getDeviceId;
 
 public class DriverManagerIOS {
@@ -71,6 +73,10 @@ public class DriverManagerIOS {
                 .withArgument(Arg.TIMEOUT, "120")
                 .withArgument(Arg.LOG_LEVEL, "warn")
                 .build();
+        MyLogger.log.info("+++++++++++++++++++++++ STARTING APPIUM SERVER ++++++++++++++++++++++");
+        MyLogger.log.info(String.format(
+                "Appium server running for device with UDID: " + getDeviceId()));
+        MyLogger.log.info("++++++++++++++++++ STARTED APPIUM SERVER ++++++++++++++++++: " + service.getUrl());
         return service;
     }
 
@@ -96,10 +102,26 @@ public class DriverManagerIOS {
     public static void killIOSDriver() {
         if (Android.driverIos != null) {
             MyLogger.log.info("Killing iOS Driver");
-            Android.driverIos.quit();
-//            Android.adb.uninstallApp(unlockPackage);
-//            Android.adb.killEmulator();
-            service.stop();
+            try {
+                Android.driverIos.quit();
+            } catch (Throwable t) {
+
+            }
+            try {
+                Android.driverIos.close();
+            } catch (Throwable t) {
+
+            }
+            try {
+                service.stop();
+            } catch (Throwable t) {
+
+            }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else MyLogger.log.info("IOS Driver is not initialized, nothing to kill");
     }
 
