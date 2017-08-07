@@ -31,8 +31,8 @@ import static core.managers.ServerManager.*;
 public class DriverManagerAndroid {
 
     private static String nodeJS = "C:/nodejs/node.exe";
-    //    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
-    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+    //    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
     private static String hubUrl;
     private static DriverService service;
     private static String deviceID;
@@ -46,8 +46,8 @@ public class DriverManagerAndroid {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("deviceName", getDeviceId());
         caps.setCapability("platformName", "Android");
-//        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
-        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
+        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
+//        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
         caps.setCapability("automationName", "uiautomator2");
         caps.setCapability("udid", getDeviceId());
         return caps;
