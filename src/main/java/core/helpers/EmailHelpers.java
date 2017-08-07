@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static core.classicmethods.SwipeFind.refreshEmailListUntilEmailIsDisplayed;
-import static core.classicmethods.SwipeFind.swipeDown;
+import static core.classicmethods.Swipe.refreshEmailListUntilEmailIsDisplayed;
+import static core.classicmethods.Swipe.swipeDown;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 

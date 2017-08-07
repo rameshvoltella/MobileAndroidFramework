@@ -4,9 +4,10 @@ import api.android.Android;
 import core.MyLogger;
 import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.ios.IOSTouchAction;
 import org.openqa.selenium.*;
 
-public class SwipeFind {
+public class Swipe {
 
     public static void swipeUp() {
         Dimension screenDim = Android.driver.manage().window().getSize();
@@ -181,4 +182,91 @@ public class SwipeFind {
         Android.driver.swipe(startPointHorizontal, startPointVertical, endPointHorizontal, startPointHorizontal,
                 durationMilliSeconds);
     }
+
+    public void scrollDown(Gestures.HorizontalPosition horizontalPosition) {
+        int durationmlseconds = 1000;
+        up(durationmlseconds, horizontalPosition);
+    }
+
+    //scroll up using duration, position of finger
+    public void up(int durationmlseconds, Gestures.HorizontalPosition horizontalPosition) {
+        up(durationmlseconds, horizontalPosition, false);
+    }
+
+    //scroll up using duration, position of fnger, screen dimension
+    public void up(int durationmlseconds, Gestures.HorizontalPosition horizontalPosition, boolean isScreenDifferent) {
+        Dimension screenSize = Android.driverIos.manage().window().getSize();
+
+        int height = screenSize.height;
+        int width = screenSize.width;
+
+        int startHorizontal = 0;
+        int startVertical = 0;
+        int stopVertical = 0;
+
+        switch (horizontalPosition) {
+            case CENTER:
+                startHorizontal = width / 2;
+                break;
+            case LEFT:
+                startHorizontal = 2;
+                break;
+            case RIGHT:
+                startHorizontal = width - 2;
+                break;
+            default:
+                break;
+        }
+        startVertical = 3 * (height / 4);
+        stopVertical = 2;
+
+        if (isScreenDifferent) {
+
+        } else {
+            Android.driverIos.performTouchAction(new IOSTouchAction(Android.driverIos)).press(startHorizontal, startVertical).waitAction(500).moveTo(startHorizontal, stopVertical).release().perform();
+        }
+    }
+
+    public void scrollUp(Gestures.HorizontalPosition horizontalPosition) {
+        int durationmlseconds = 1000;
+        down(durationmlseconds, horizontalPosition);
+    }
+
+    public void down(int durationmlseconds, Gestures.HorizontalPosition horizontalPosition) {
+        down(durationmlseconds, horizontalPosition, false);
+    }
+
+    public void down(int durationmlseconds, Gestures.HorizontalPosition horizontalPosition, boolean isScreenDifferent) {
+        Dimension screenSize = Android.driverIos.manage().window().getSize();
+
+        int height = screenSize.height;
+        int width = screenSize.width;
+
+        int startHorizontal = 0;
+        int startVertical = 0;
+        int stopVertical = 0;
+
+        switch (horizontalPosition) {
+            case CENTER:
+                startHorizontal = width / 2;
+                break;
+            case LEFT:
+                startHorizontal = 2;
+                break;
+            case RIGHT:
+                startHorizontal = width - 2;
+                break;
+            default:
+                break;
+        }
+        startVertical = 1 * (height / 6);
+        stopVertical = width - 2;
+
+        if (isScreenDifferent) {
+
+        } else {
+            Android.driverIos.performTouchAction(new IOSTouchAction(Android.driverIos)).press(startHorizontal, startVertical).waitAction(500).moveTo(startHorizontal, stopVertical).release().perform();
+        }
+    }
+
 }

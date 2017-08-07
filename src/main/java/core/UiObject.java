@@ -3,8 +3,8 @@ package core;
 import api.android.Android;
 import org.openqa.selenium.*;
 
-import static core.classicmethods.SwipeFind.swipeDown;
-import static core.classicmethods.SwipeFind.swipeUp;
+import static core.classicmethods.Swipe.swipeDown;
+import static core.classicmethods.Swipe.swipeUp;
 
 
 public class UiObject {
