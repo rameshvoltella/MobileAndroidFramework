@@ -160,6 +160,7 @@ public class ServerManager {
         return name;
 
     }
+
     public static String getBootstrap() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
@@ -169,6 +170,7 @@ public class ServerManager {
         return name;
 
     }
+
     public static String getChromedriver() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
@@ -178,6 +180,7 @@ public class ServerManager {
         return name;
 
     }
+
     public static String getPort() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
@@ -187,12 +190,52 @@ public class ServerManager {
         return name;
 
     }
+
     public static String getIosWebKit() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
                 "src\\test\\resources\\LocalJsonAndroid.json"));
         JSONObject jsonObject = (JSONObject) obj;
         String name = (String) jsonObject.get("IosWebKit");
+        return name;
+
+    }
+
+    public static String getAppLocation() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src\\test\\resources\\LocalJsonAndroid.json"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("appLocation");
+        return name;
+
+    }
+
+    public static String getAutomationName() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src\\test\\resources\\LocalJsonAndroid.json"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("automationName");
+        return name;
+
+    }
+
+    public static String getPlatformName() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src\\test\\resources\\LocalJsonAndroid.json"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("platformName");
+        return name;
+
+    }
+    public static String getDeviceNameJason() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src\\test\\resources\\LocalJsonAndroid.json"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("deviceName");
         return name;
 
     }

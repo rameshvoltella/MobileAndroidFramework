@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static core.managers.ServerManager.*;
+import static core.managers.ServerManager.getDeviceId;
 
 
 public class DriverManagerAndroid {
@@ -44,12 +45,13 @@ public class DriverManagerAndroid {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability("deviceName", getDeviceId());
-        caps.setCapability("platformName", "Android");
-        caps.setCapability("app", "D:/AppiumApk/Emma-prodautomation.apk");
-//        caps.setCapability("app", "E:/GradleProject/Emma-prodautomation.apk");
-        caps.setCapability("automationName", "uiautomator2");
+        caps.setCapability("deviceName", getDeviceNameJason());
+        caps.setCapability("platformName", getPlatformName());
+        caps.setCapability("app", getAppLocation());
+        caps.setCapability("automationName", getAutomationName());
         caps.setCapability("udid", getDeviceId());
+        caps.setCapability("unicodeKeyboard", true);
+
         return caps;
     }
 
@@ -111,7 +113,6 @@ public class DriverManagerAndroid {
 //                        .withArgument(AndroidServerFlag.CHROME_DRIVER_PORT, getChromedriver())
 //                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
                         .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
-                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
                         //.withArgument(GeneralServerFlag.COMMAND_TIMEOUT, "60")
                         .withStartUpTimeOut(120, TimeUnit.SECONDS)
                         .withCapabilities(getCaps()));
@@ -127,22 +128,31 @@ public class DriverManagerAndroid {
         ArrayList connectedDevices = ADB.getConnectedDevices();
         if (connectedDevices.size() == 0) {
             throw new RuntimeException("Not a single device is available for testing at this time");
-        }
-        String device = getDeviceId();
-        try {
-            deviceID = device;
-            if (useDevice(deviceID)) {
-                queueUp();
-                gracePeriod();
-                MyLogger.log.info("Trying to create new Driver for device: " + device);
-                createService().start();
-                Android.driver = getNewDriver((AppiumDriverLocalService) service, getCaps());
-                Android.adb = new ADB(device);
-                leaveQueue();
+        } else if (connectedDevices.size() > 0) {
+            for (Object connectedDevice : connectedDevices) {
+                String device = connectedDevice.toString();
+                if (!device.contains(getDeviceId())) {
+                    throw new RuntimeException("Not a single device is available for testing at this time with udid: " + getDeviceId());
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            //Ignore and try next device
+
+
+            String device = getDeviceId();
+            try {
+                deviceID = device;
+                if (useDevice(deviceID)) {
+                    queueUp();
+                    gracePeriod();
+                    MyLogger.log.info("Trying to create new Driver for device: " + device);
+                    createService().start();
+                    Android.driver = getNewDriver((AppiumDriverLocalService) service, getCaps());
+                    Android.adb = new ADB(device);
+                    leaveQueue();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //Ignore and try next device
+            }
         }
     }
 
