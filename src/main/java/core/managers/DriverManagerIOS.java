@@ -5,11 +5,14 @@ import core.MyLogger;
 import core.Timer;
 import core.constants.Arg;
 import core.constants.Resources;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.service.DriverService;
 
@@ -19,10 +22,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
-import static core.managers.ServerManager.getBootstrap;
-import static core.managers.ServerManager.getChromedriver;
-import static core.managers.ServerManager.getDeviceId;
+import static core.managers.ServerManager.*;
 
 public class DriverManagerIOS {
 
@@ -34,7 +36,7 @@ public class DriverManagerIOS {
     private static HashMap<String, URL> hosts;
     private static String unlockPackage = "de.telekom.mail";
 
-    private static DesiredCapabilities getCaps(String deviceID) {
+    private static DesiredCapabilities getCaps() {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -64,20 +66,21 @@ public class DriverManagerIOS {
         return hosts.get(deviceID);
     }
 
-    private static DriverService createService() throws IOException, ParseException {
-        service = new AppiumServiceBuilder()
-                .usingDriverExecutable(new File(nodeJS))
-                .withAppiumJS(new File(appiumJS))
-                .withIPAddress(host(deviceID).toString().split(":")[1].replace("//", ""))
-                .usingPort(Integer.parseInt(host(deviceID).toString().split(":")[2].replace("/wd/hub", "")))
-                .withArgument(Arg.TIMEOUT, "120")
-                .withArgument(Arg.LOG_LEVEL, "warn")
-                .build();
+    private static AppiumDriverLocalService createService() throws IOException, ParseException {
+        service = AppiumDriverLocalService
+                .buildService(new AppiumServiceBuilder()
+                        .usingDriverExecutable(new File(nodeJS))
+                        .withAppiumJS(new File(appiumJS))
+                        .withIPAddress(getIP())
+                        .usingAnyFreePort()
+                        .withStartUpTimeOut(120, TimeUnit.SECONDS)
+                        .withArgument(Arg.LOG_LEVEL, "warn"));
+
         MyLogger.log.info("+++++++++++++++++++++++ STARTING APPIUM SERVER ++++++++++++++++++++++");
         MyLogger.log.info(String.format(
                 "Appium server running for device with UDID: " + getDeviceId()));
         MyLogger.log.info("++++++++++++++++++ STARTED APPIUM SERVER ++++++++++++++++++: " + service.getUrl());
-        return service;
+        return (AppiumDriverLocalService) service;
     }
 
     public static void createiOSDriver() throws IOException, ParseException {
@@ -89,8 +92,7 @@ public class DriverManagerIOS {
                 gracePeriod();
                 MyLogger.log.info("Trying to create new Driver for device: " + device);
                 createService().start();
-                Android.driverIos = new IOSDriver(host(device), getCaps(device));
-//                    Android.adb = new ADB(device);
+                Android.driverIos = getNewDriver((AppiumDriverLocalService) service, getCaps());
                 leaveQueue();
             }
         } catch (Exception e) {
@@ -196,4 +198,16 @@ public class DriverManagerIOS {
             throw new RuntimeException(e);
         }
     }
+
+    private static IOSDriver getNewDriver(AppiumDriverLocalService service1, Capabilities capabilities) {
+        IOSDriver ad = null;
+        try {
+            ad = new IOSDriver(service1, capabilities);
+        } catch (Throwable t) {
+            // if it failed first time, try again
+            ad = new IOSDriver(service1, capabilities);
+        }
+        return ad;
+    }
+
 }

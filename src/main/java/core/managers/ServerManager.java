@@ -151,13 +151,23 @@ public class ServerManager {
 
     }
 
+
     public static String getIP() throws IOException, ParseException {
-        JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader(
-                "src\\test\\resources\\LocalJsonAndroid.json"));
-        JSONObject jsonObject = (JSONObject) obj;
-        String name = (String) jsonObject.get("ip");
-        return name;
+        if (isWindows()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src\\test\\resources\\LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("ip");
+            return name;
+        } else {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/localJsonIOS.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("ip");
+            return name;
+        }
 
     }
 
@@ -230,6 +240,7 @@ public class ServerManager {
         return name;
 
     }
+
     public static String getDeviceNameJason() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(

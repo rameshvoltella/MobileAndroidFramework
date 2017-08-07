@@ -1,5 +1,5 @@
 {
-  "DeviceID": "iosdevice",
-  "AppiumURL": "http://127.0.0.1:4723/wd/hub"
-
+  "DeviceID": "2ccf30dd21fa31a77967a66580e6c7ee62ecce88",
+  "AppiumURL": "http://127.0.0.1:4723/wd/hub",
+  "ip": "127.0.0.1"
 }
