@@ -2,7 +2,10 @@ package core.classicmethods;
 
 import api.android.Android;
 import core.MyLogger;
+import core.helpers.Screenshot;
+import io.appium.java_client.MobileDriver;
 import io.appium.java_client.TouchAction;
+import org.aspectj.weaver.ast.And;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -17,12 +20,17 @@ import java.util.NoSuchElementException;
  * Created by lumihai on 5/24/2017.
  */
 public class Gestures {
-
-    public static WebDriverWait waitDriver = new WebDriverWait(Android.driverIos, 30);
+    public static final int MAX_RETRIES = 10;
+    public static final int DEFAULT_SLEEP_TIME_BETWEEN_RETRIES = 500;
+    public static final int WAIT_TIME_IN_SECONDS = 10;
+    private static WebDriverWait waitDriver = null;
     Waiters waithelper = new Waiters();
     Swipe swipe = new Swipe();
 
     public static WebDriverWait waiting() {
+        if (waitDriver == null) {
+            waitDriver = new WebDriverWait(Android.driverIos, 30);
+        }
         return waitDriver;
     }
 
@@ -104,7 +112,7 @@ public class Gestures {
 
     //click on mobile element of type By
     public void clickOn(By element) {
-        waithelper.waitForElementVIsibility(element);
+        waithelper.waitForElementVIsibilityIOS(element);
         Android.driverIos.findElement(element).click();
     }
 
@@ -243,6 +251,182 @@ public class Gestures {
 
     }
 
+    /**
+     * Click (tap) on a web element identified by its id and type. strinctValue
+     * indicates if the id should be identical (true) or element should just
+     * contain the given id (false).If element is not found or cannot be
+     * clicked, a retry mechanism is implemented. It will retry up to a set
+     * number of retries.
+     *
+     * @param id
+     * @param type
+     * @param strictValue
+     */
+    public void click(String id, String type, boolean strictValue) {
+        click(id, type, strictValue, HorizontalPosition.CENTER);
+    }
+
+    /**
+     * Click (tap) on a web element identified by its id and type. strinctValue
+     * indicates if the id should be identical (true) or element should just
+     * contain the given id (false). HorizontalPosition indicates where the
+     * element should be tapped. If element is not found or cannot be clicked, a
+     * retry mechanism is implemented. It will retry up to a set number of
+     * retries.
+     *
+     * @param id
+     * @param type
+     * @param strictValue
+     * @param horizontalPositionOfFinger
+     */
+    public void click(String id, String type, boolean strictValue,
+                      HorizontalPosition horizontalPositionOfFinger) {
+        click(id, type, strictValue, horizontalPositionOfFinger, true);
+    }
+
+    /**
+     * Click (tap) on a web element identified by its id and type. strinctValue
+     * indicates if the id should be identical (true) or element should just
+     * contain the given id (false). HorizontalPosition indicates where the
+     * element should be tapped. shouldBeClickable indicates if we should wait
+     * or not for the element to be clickable. If element is not found or cannot
+     * be clicked, a retry mechanism is implemented. It will retry up to a set
+     * number of retries.
+     *
+     * @param id
+     * @param type
+     * @param strictValue
+     * @param horizontalPositionOfFinger
+     * @param shouldBeClickable
+     */
+    public void click(String id, String type, boolean strictValue, HorizontalPosition horizontalPositionOfFinger,
+                      boolean shouldBeClickable) {
+
+        click(id, type, strictValue, horizontalPositionOfFinger, VerticalPosition.CENTER, shouldBeClickable);
+    }
+
+    public void click(String id, String type, boolean strictValue, HorizontalPosition horizontalPositionOfFinger,
+                      VerticalPosition verticalPositionOfFinger, boolean shouldBeClickable) {
+
+        int retry = 0;
+
+        do {
+            try {
+                clickOnce(id, type, strictValue, horizontalPositionOfFinger, verticalPositionOfFinger,
+                        shouldBeClickable);
+                return;
+            } catch (NoSuchElementException e) {
+                retry++;
+                MyLogger.log.info(String.format("Attempt %d of %d failed. Element not found to click.", retry, MAX_RETRIES));
+                e.printStackTrace();
+                try {
+                    Thread.sleep(DEFAULT_SLEEP_TIME_BETWEEN_RETRIES);
+                } catch (InterruptedException e1) {
+                    // do nothing
+                }
+//            } catch (SessionNotFoundException snfe) {
+//                throw snfe;
+            } catch (Throwable e) {
+                retry++;
+                System.out.println(String.format("Attempt %d of %d failed. Unexpected exception when clicking element.",
+                        retry, MAX_RETRIES));
+                e.printStackTrace();
+                try {
+                    Thread.sleep(DEFAULT_SLEEP_TIME_BETWEEN_RETRIES);
+                } catch (InterruptedException e1) {
+                    // do nothing
+                }
+            }
+        } while (retry < MAX_RETRIES);
+
+        try {
+            // try one more time
+            clickOnce(id, type, strictValue, horizontalPositionOfFinger, verticalPositionOfFinger, shouldBeClickable);
+        } catch (Exception e) {
+            Screenshot.takeScreenshot("clickFail");
+            throw new RuntimeException("Click Fail", e);
+        }
+    }
+
+    private void clickOnce(String id, String type, boolean strictValue,
+                           HorizontalPosition horizontalPositionOfFinger, VerticalPosition verticalPositionOfFinger,
+                           boolean shouldBeClickable) throws Exception {
+
+        WebElement we = null;
+        // get a list of all elements with the id
+        List<WebElement> weList = Android.driverIos.findElements(By.id(id));
+        // choose the first one that has the text exactly like the
+        // one requested, if this is needed. also type should be the
+        // same
+        for (WebElement item : weList) {
+            String name = item.getAttribute(Attribute.NAME.toString());
+            String tagName = item.getTagName();
+            if (tagName.compareToIgnoreCase(type) == 0) {
+                if (strictValue) {
+                    if (name.compareTo(id) == 0) {
+                        we = item;
+                        break;
+                    }
+                } else {
+                    we = item;
+                    break;
+                }
+            }
+        }
+
+        // if it was found, click it, otherwise throw exception
+        if (we != null) {
+            if (shouldBeClickable) {
+                waiting().until(ExpectedConditions.elementToBeClickable(we));
+            }
+            if (shouldBeClickable && (horizontalPositionOfFinger == HorizontalPosition.CENTER)
+                    && (verticalPositionOfFinger == VerticalPosition.CENTER)) {
+                we.click();
+                return;
+            } else {
+                Point locationC = we.getLocation();
+                Dimension sizeC = we.getSize();
+                int tapX = 0;
+                int tapY = 0;
+
+                switch (horizontalPositionOfFinger) {
+                    case CENTER:
+                        tapX = locationC.x + (sizeC.width / 2);
+                        break;
+                    case LEFT:
+                        tapX = locationC.x + 1;
+                        break;
+                    case RIGHT:
+                        tapX = locationC.x + sizeC.width - 1;
+                        break;
+                    default:
+                        // do nothing
+                        break;
+                }
+
+                switch (verticalPositionOfFinger) {
+                    case CENTER:
+                        tapY = locationC.y + (sizeC.height / 2);
+                        break;
+                    case UP:
+                        tapY = locationC.y + 1;
+                        break;
+                    case DOWN:
+                        tapY = locationC.y + sizeC.height - 1;
+                        break;
+                    default:
+                        // do nothing
+                        break;
+                }
+                MyLogger.log.info("tapping at coordonates " + tapX + " " + tapY);
+                new TouchAction(Android.driverIos).tap(tapX, tapY).release().perform();
+            }
+        } else {
+            throw new Exception("Element not found by id " + id + " and type " + type);
+        }
+
+    }
+
     public void sendText(By by, String inputText) {
         try {
             WebElement we = Android.driverIos.findElement(by);
@@ -263,7 +447,7 @@ public class Gestures {
 
     //list with attributes from detecting web elements
     public enum Attribute {
-        LABEL, NAME, VALUE, XPATH, TEXT, TAGNAME, VISIBLE, COLOR, CHECKED, RESOURCEID;
+        LABEL, NAME, VALUE, XPATH, TEXT, TAGNAME, VISIBLE, COLOR, CHECKED, RESOURCEID, TYPE;
 
         /**
          * Returns the name of the enum constant, in lowercase

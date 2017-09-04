@@ -44,7 +44,7 @@ public class DriverManagerIOS {
         caps.setCapability("platformName", "iOS");
         caps.setCapability("platformVersion", "10.3.3");
         caps.setCapability("deviceName", deviceID);
-        caps.setCapability("app", "/Users/Shared/Appium/TelekomMail-VTU-Universal.ipa");
+        caps.setCapability("app", "/Users/Shared/Appium/Inflight.ipa");
         caps.setCapability("udid", "2ccf30dd21fa31a77967a66580e6c7ee62ecce88");
         caps.setCapability("newCommandTimeout", 600);
         caps.setCapability("automationName", "XCUITest");

@@ -2,6 +2,7 @@ package core.classicmethods;
 
 import api.android.Android;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,6 +17,11 @@ public class Waiters {
     //fluent wait  for an element (used for clicks - wait for element before click)
     public void waitForElementVIsibility(By element) {
         FluentWait<AndroidDriver> wait = new FluentWait<AndroidDriver>(Android.driver).withTimeout(20, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+    }
+
+    public void waitForElementVIsibilityIOS(By element) {
+        FluentWait<IOSDriver> wait = new FluentWait<IOSDriver>(Android.driverIos).withTimeout(20, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 

@@ -1,10 +1,12 @@
 package core.managers;
 
 import api.android.Android;
+import api.apps.inflightiOS.InflightiOS;
 import api.apps.mail.Mail;
 import core.MyLogger;
 import core.Retry;
 import core.TestInfo;
+import org.aspectj.weaver.ast.And;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,6 +22,7 @@ public class TestManager {
 
     public static TestInfo testInfo = new TestInfo();
     public static Mail mail = Android.app.mail;
+    public static InflightiOS inflightiOS = Android.app.inflightiOS;
 
     @Rule
     public Retry retry = new Retry(1);

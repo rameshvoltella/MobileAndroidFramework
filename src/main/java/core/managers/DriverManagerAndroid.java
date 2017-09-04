@@ -33,6 +33,8 @@ public class DriverManagerAndroid {
 
     private static String nodeJS = "C:/nodejs/node.exe";
     private static String appiumJS = "C:/Users/lumihai/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
+//    private static String nodeJS = "/usr/local/Cellar/node/6.8.0/bin/node";
+//    private static String appiumJS = "/usr/local/lib/node_modules/appium/build/lib/main.js";
     //    private static String appiumJS = "C:/Users/maiky/AppData/Roaming/npm/node_modules/appium/build/lib/main.js";
     private static String hubUrl;
     private static DriverService service;

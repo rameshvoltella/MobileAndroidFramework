@@ -1,5 +1,6 @@
 package tests;
 
+import core.classicmethods.Gestures;
 import core.managers.TestManager;
 import org.junit.Before;
 import org.junit.Test;
