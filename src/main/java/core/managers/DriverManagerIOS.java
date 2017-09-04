@@ -35,6 +35,7 @@ public class DriverManagerIOS {
 
     private static HashMap<String, URL> hosts;
     private static String unlockPackage = "de.telekom.mail";
+    private static boolean fullResetNeeded = true;
 
     private static DesiredCapabilities getCaps() {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
@@ -53,6 +54,31 @@ public class DriverManagerIOS {
         caps.setCapability("resetOnSessionStartOnly", true);
         caps.setCapability("useNewWDA", true);
         caps.setCapability("commandTimeouts", "120000");
+        if (!fullResetNeeded) {
+            caps.setCapability("noReset", true);
+        }
+
+        return caps;
+    }
+
+    private static DesiredCapabilities getCapsNoReset() {
+        MyLogger.log.info("Creating driver caps for device: " + deviceID);
+
+        DesiredCapabilities caps = new DesiredCapabilities();
+
+        caps.setCapability("platformName", "iOS");
+        caps.setCapability("platformVersion", "10.3.3");
+        caps.setCapability("deviceName", deviceID);
+        caps.setCapability("app", "/Users/Shared/Appium/Inflight.ipa");
+        caps.setCapability("udid", "2ccf30dd21fa31a77967a66580e6c7ee62ecce88");
+        caps.setCapability("newCommandTimeout", 600);
+        caps.setCapability("automationName", "XCUITest");
+//        caps.setCapability(MobileCapabilityType.ROTATABLE, true);
+        caps.setCapability("wdaConnectionTimeout", 60000);
+        caps.setCapability("resetOnSessionStartOnly", true);
+        caps.setCapability("useNewWDA", true);
+        caps.setCapability("commandTimeouts", "120000");
+            caps.setCapability("noReset", true);
 
         return caps;
     }
@@ -93,6 +119,24 @@ public class DriverManagerIOS {
                 MyLogger.log.info("Trying to create new Driver for device: " + device);
                 createService().start();
                 Android.driverIos = getNewDriver((AppiumDriverLocalService) service, getCaps());
+                leaveQueue();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Ignore and try next device
+        }
+    }
+
+    public static void createiOSDriverNoReset() throws IOException, ParseException {
+        String device = getDeviceId();
+        try {
+            deviceID = device;
+            if (useDevice(deviceID)) {
+                queueUp();
+                gracePeriod();
+                MyLogger.log.info("Trying to create new Driver for device: " + device);
+                createService().start();
+                Android.driverIos = getNewDriver((AppiumDriverLocalService) service, getCapsNoReset());
                 leaveQueue();
             }
         } catch (Exception e) {

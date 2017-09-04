@@ -106,7 +106,7 @@ public class AssertsUtils {
         Boolean result = null;
         try {
             result = Android.driverIos.findElement(by).isDisplayed();
-        } catch (TimeoutException e) {
+        } catch (Exception e) {
             result = false;
         }
         assertTrue("element" + by + "was not displayed", result);

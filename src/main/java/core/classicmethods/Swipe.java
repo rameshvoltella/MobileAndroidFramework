@@ -33,6 +33,24 @@ public class Swipe {
         Android.driver.swipe(width / 2, height / 6, width / 2, height - height / 3, 1000);
     }
 
+    public void swipeLeftWithTouchiOS() {
+        Dimension screenDim = Android.driverIos.manage().window().getSize();
+        int height = screenDim.height;
+        int width = screenDim.width;
+        MyLogger.log.info("Swipe right using android driver swipe command");
+        new TouchAction(Android.driverIos).press(width, height / 2).waitAction(100).moveTo(- width, height / 2).release().perform();
+    }
+
+    public void swipeRightWithTouchiOS() {
+        Dimension screenDim = Android.driverIos.manage().window().getSize();
+        int height = screenDim.height;
+        int width = screenDim.width;
+        MyLogger.log.info("Swipe right using android driver swipe command");
+        new TouchAction(Android.driverIos).press(0, height / 2).waitAction(100).moveTo(width, height / 2).release().perform();
+
+
+    }
+
     public static void refreshEmailListUntilEmailIsDisplayed(String subject) {
         int retry = 0;
         while (retry < 20) {
