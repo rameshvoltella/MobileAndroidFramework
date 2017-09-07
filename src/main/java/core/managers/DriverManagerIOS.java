@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -93,12 +94,16 @@ public class DriverManagerIOS {
     }
 
     private static AppiumDriverLocalService createService() throws IOException, ParseException {
+        Map<String, String> env = new HashMap<>(System.getenv());
+        env.put("PATH", "/usr/local/bin:" + env.get("PATH"));
+
         service = AppiumDriverLocalService
                 .buildService(new AppiumServiceBuilder()
                         .usingDriverExecutable(new File(nodeJS))
                         .withAppiumJS(new File(appiumJS))
                         .withIPAddress(getIP())
                         .usingAnyFreePort()
+                        .withEnvironment(env)
                         .withStartUpTimeOut(120, TimeUnit.SECONDS)
                         .withArgument(Arg.LOG_LEVEL, "warn"));
 
