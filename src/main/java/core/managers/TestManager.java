@@ -6,7 +6,6 @@ import api.apps.mail.Mail;
 import core.MyLogger;
 import core.Retry;
 import core.TestInfo;
-import org.aspectj.weaver.ast.And;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -14,8 +13,7 @@ import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import static core.managers.ServerManager.isMac;
-import static core.managers.ServerManager.isWindows;
+import static core.managers.ServerManager.*;
 
 
 public class TestManager {
@@ -45,18 +43,22 @@ public class TestManager {
     @Before
     public void before() throws Exception {
         testInfo.reset();
-        if (isWindows()) {
+        if (isWindows() && isAndroid()) {
             MyLogger.log.info("Driver creation started for Windows Environment");
             DriverManagerAndroid.createDriver();
-        } else if (isMac()) {
+//        } else if (isMac() && isAndroid()) {
+//            MyLogger.log.info("Driver creation started for Windows Environment");
+//            DriverManagerAndroid.createDriver();
+        } else if (isMac() && isIos()) {
             MyLogger.log.info("Driver creation started for Mac Environment");
             DriverManagerIOS.createiOSDriver();
         } else {
+
             MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
             throw new Exception("Setup is ran on other environment; no Windows or Mac could be identified");
 
         }
-    }
+}
 
     @After
     public void cleanAfterTest() throws Exception {

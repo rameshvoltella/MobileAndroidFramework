@@ -7,6 +7,7 @@ import core.MyLogger;
 import core.classicmethods.AssertsUtils;
 import core.classicmethods.Gestures;
 import core.classicmethods.Swipe;
+import core.classicmethods.Waiters;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -15,6 +16,7 @@ public class FirstTimeView implements Activity {
     Gestures gestures = new Gestures();
     AssertsUtils assertsUtils = new AssertsUtils();
     Swipe swipe = new Swipe();
+    Waiters waiters = new Waiters();
 
     public By closeBtn = By.id("close");
     public By nextBtn = By.id("Next");
@@ -91,6 +93,7 @@ public class FirstTimeView implements Activity {
     public FirstTimeView validatePageIndicatorValue(String value) {
         try {
             MyLogger.log.info("Validate Page Indicator Value from First Time View");
+            waiters.waitForElementVIsibilityIOS(pageIndicator);
             assertsUtils.AssertEquals(pageIndicator, value, AssertsUtils.Attribute.VALUE, "Value" + value + "is not the same with the one from current page in FTW");
             return this;
         } catch (NoSuchElementException e) {
@@ -101,6 +104,7 @@ public class FirstTimeView implements Activity {
     public FirstTimeView validateDontShowState(String value) {
         try {
             MyLogger.log.info("Validate state of do not show again button in FTW");
+            waiters.waitForElementVIsibilityIOS(dontShowGainBtn2);
             assertsUtils.AssertEquals(dontShowGainBtn2, value, AssertsUtils.Attribute.VALUE, "Value" + value + "is not the same with the one from current page in FTW");
             return this;
         } catch (NoSuchElementException e) {
@@ -141,6 +145,7 @@ public class FirstTimeView implements Activity {
     public FirstTimeView validateCloseBtnIsVisible() {
         try {
             MyLogger.log.info("Validate X button from First Time View is visible");
+            waiters.waitForElementVIsibilityIOS(closeBtn);
             assertsUtils.isElementDisplayed(closeBtn);
             return this;
         } catch (NoSuchElementException e) {

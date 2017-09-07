@@ -6,6 +6,7 @@ import core.classicmethods.AssertsUtils;
 import core.managers.DriverManagerIOS;
 import core.managers.TestManager;
 import org.json.simple.parser.ParseException;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,11 @@ import org.openqa.selenium.WebElement;
 import java.io.IOException;
 
 public class TestSet_01_FirstTimeView extends TestManager {
+
+    @Before
+    public void skipLoginAndPin() {
+        inflightiOS.workarounds.skipLoginmethod();
+    }
 
     @Test
     public void navigateUpFTW() {

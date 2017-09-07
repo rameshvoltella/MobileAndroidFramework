@@ -37,7 +37,7 @@ public class DriverManagerIOS {
     private static String unlockPackage = "de.telekom.mail";
     private static boolean fullResetNeeded = true;
 
-    private static DesiredCapabilities getCaps() {
+    private static DesiredCapabilities getCaps() throws IOException, ParseException {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -45,10 +45,10 @@ public class DriverManagerIOS {
         caps.setCapability("platformName", "iOS");
         caps.setCapability("platformVersion", "10.3.3");
         caps.setCapability("deviceName", deviceID);
-        caps.setCapability("app", "/Users/Shared/Appium/Inflight.ipa");
-        caps.setCapability("udid", "2ccf30dd21fa31a77967a66580e6c7ee62ecce88");
+        caps.setCapability("app", getAppLocation());
+        caps.setCapability("udid", getDeviceId());
         caps.setCapability("newCommandTimeout", 600);
-        caps.setCapability("automationName", "XCUITest");
+        caps.setCapability("automationName", getAutomationName());
 //        caps.setCapability(MobileCapabilityType.ROTATABLE, true);
         caps.setCapability("wdaConnectionTimeout", 60000);
         caps.setCapability("resetOnSessionStartOnly", true);
@@ -61,7 +61,7 @@ public class DriverManagerIOS {
         return caps;
     }
 
-    private static DesiredCapabilities getCapsNoReset() {
+    private static DesiredCapabilities getCapsNoReset() throws IOException, ParseException {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -69,10 +69,10 @@ public class DriverManagerIOS {
         caps.setCapability("platformName", "iOS");
         caps.setCapability("platformVersion", "10.3.3");
         caps.setCapability("deviceName", deviceID);
-        caps.setCapability("app", "/Users/Shared/Appium/Inflight.ipa");
-        caps.setCapability("udid", "2ccf30dd21fa31a77967a66580e6c7ee62ecce88");
+        caps.setCapability("app", getAppLocation());
+        caps.setCapability("udid", getDeviceId());
         caps.setCapability("newCommandTimeout", 600);
-        caps.setCapability("automationName", "XCUITest");
+        caps.setCapability("automationName", getAutomationName());
 //        caps.setCapability(MobileCapabilityType.ROTATABLE, true);
         caps.setCapability("wdaConnectionTimeout", 60000);
         caps.setCapability("resetOnSessionStartOnly", true);

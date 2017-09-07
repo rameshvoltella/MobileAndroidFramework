@@ -1,11 +1,17 @@
 package api.apps.inflightiOS;
 
 import api.apps.inflightiOS.firsttimeview.FirstTimeView;
+import api.apps.inflightiOS.mainmenu.MainMenu;
+import api.apps.inflightiOS.pincode.PinCode;
+import api.apps.inflightiOS.workarounds.Workarounds;
 import api.interfaces.Application;
 
 public class InflightiOS implements Application {
 
     public FirstTimeView firsttimeview = new FirstTimeView();
+    public PinCode pinCode = new PinCode();
+    public MainMenu mainMenu = new MainMenu();
+    public Workarounds workarounds = new Workarounds();
 
     @Override
     public void forceStop() {

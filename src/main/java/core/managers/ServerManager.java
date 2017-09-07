@@ -47,6 +47,43 @@ public class ServerManager {
         return OS;
     }
 
+    public static String getPlatformAndroid() throws IOException, ParseException {
+        try {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src\\test\\resources\\LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("platformName");
+            return name;
+        } catch (Throwable t) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("platformName");
+            return name;
+        }
+    }
+
+    public static String getPlatformIos() throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader(
+                "src/test/resources/localJsonIOS.json"));
+        JSONObject jsonObject = (JSONObject) obj;
+        String name = (String) jsonObject.get("platformName");
+        return name;
+    }
+
+
+    public static boolean isAndroid() throws IOException, ParseException {
+        return getPlatformAndroid().equals("android");
+    }
+
+    public static boolean isIos() throws IOException, ParseException {
+        return getPlatformIos().equals("ios");
+    }
+
+
     public static boolean isWindows() {
         return getOS().contains("Windows");
     }
@@ -212,32 +249,59 @@ public class ServerManager {
     }
 
     public static String getAppLocation() throws IOException, ParseException {
-        JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader(
-                "src\\test\\resources\\LocalJsonAndroid.json"));
-        JSONObject jsonObject = (JSONObject) obj;
-        String name = (String) jsonObject.get("appLocation");
-        return name;
+        if (isWindows()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src\\test\\resources\\LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("appLocation");
+            return name;
+        } else {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/localJsonIOS.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("appLocation");
+            return name;
+        }
 
     }
 
     public static String getAutomationName() throws IOException, ParseException {
-        JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader(
-                "src\\test\\resources\\LocalJsonAndroid.json"));
-        JSONObject jsonObject = (JSONObject) obj;
-        String name = (String) jsonObject.get("automationName");
-        return name;
+        if (isWindows()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src\\test\\resources\\LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("automationName");
+            return name;
+        } else {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/localJsonIOS.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("automationName");
+            return name;
+        }
 
     }
 
     public static String getPlatformName() throws IOException, ParseException {
-        JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader(
-                "src\\test\\resources\\LocalJsonAndroid.json"));
-        JSONObject jsonObject = (JSONObject) obj;
-        String name = (String) jsonObject.get("platformName");
-        return name;
+        if (isWindows()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src\\test\\resources\\LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("platformName");
+            return name;
+        } else {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/localJsonIOS.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("platformName");
+            return name;
+        }
 
     }
 

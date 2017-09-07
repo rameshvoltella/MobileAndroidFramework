@@ -14,6 +14,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class AssertsUtils {
 
+    public Waiters waiters = new Waiters();
+
     //another type of wait for elements which appear in some circumstances
     public boolean isElementExist(By by) {
         try {
@@ -31,6 +33,7 @@ public class AssertsUtils {
     public void isElementDisplayed(By by) {
         Boolean reult = null;
         try {
+            waiters.waitForElementVIsibilityIOS(by);
             reult = Android.driverIos.findElement(by).isDisplayed();
         } catch (TimeoutException e) {
             reult = false;
@@ -41,6 +44,7 @@ public class AssertsUtils {
     public void isElementEnabled(By by) {
         Boolean reult = null;
         try {
+            waiters.waitForElementVIsibilityIOS(by);
             reult = Android.driverIos.findElement(by).isEnabled();
         } catch (TimeoutException e) {
             reult = false;
