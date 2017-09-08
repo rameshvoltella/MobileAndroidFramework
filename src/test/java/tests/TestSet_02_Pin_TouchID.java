@@ -12,8 +12,7 @@ public class TestSet_02_Pin_TouchID extends TestManager {
 
     @Test
     public void unlockAppWithPin() {
-//        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
-        inflightiOS.pinCode.unlockWithPinCode2();
+        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
     }
 
     @Test
