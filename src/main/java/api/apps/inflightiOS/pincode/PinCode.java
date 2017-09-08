@@ -56,6 +56,11 @@ public class PinCode implements Activity {
             String pinNumber = Integer.toString(i);
 //            String pinNumber = "" + i;
             MyLogger.log.info("Tap on pincode number: " + pinNumber + " button from FTW");
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             gestures.clickOn(By.id(pinNumber));
             return this;
         } catch (NoSuchElementException e) {
