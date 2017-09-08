@@ -105,7 +105,8 @@ public class DriverManagerIOS {
                         .usingAnyFreePort()
                         .withEnvironment(env)
                         .withStartUpTimeOut(120, TimeUnit.SECONDS)
-                        .withArgument(Arg.LOG_LEVEL, "warn"));
+//                        .withArgument(Arg.LOG_LEVEL, "warn"));
+                        .withArgument(Arg.LOG_LEVEL, "debug"));
 
         MyLogger.log.info("+++++++++++++++++++++++ STARTING APPIUM SERVER ++++++++++++++++++++++");
         MyLogger.log.info(String.format(
