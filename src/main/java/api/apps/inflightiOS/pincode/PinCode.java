@@ -49,6 +49,7 @@ public class PinCode implements Activity {
     public By enterNewPin = By.id("Enter new PIN");
     public By infoBtn = By.id("Info");
     public By cancelBtn = By.id("Cancel");
+    public By digitOne = By.id("1");
 
 
     public PinCode click_digit(int i) {
@@ -56,11 +57,6 @@ public class PinCode implements Activity {
             String pinNumber = Integer.toString(i);
 //            String pinNumber = "" + i;
             MyLogger.log.info("Tap on pincode number: " + pinNumber + " button from FTW");
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             gestures.clickOn(By.id(pinNumber));
             return this;
         } catch (NoSuchElementException e) {
@@ -81,12 +77,18 @@ public class PinCode implements Activity {
                 //do nothing
             }
             MyLogger.log.info("Entering pin digits");
-            click_digit(digit1);
-            click_digit(digit2);
-            click_digit(digit3);
-            click_digit(digit4);
-            click_digit(digit5);
-            click_digit(digit6);
+//            click_digit(digit1);
+//            click_digit(digit2);
+//            click_digit(digit3);
+//            click_digit(digit4);
+//            click_digit(digit5);
+//            click_digit(digit6);
+            gestures.clickOn(digitOne);
+            gestures.clickOn(digitOne);
+            gestures.clickOn(digitOne);
+            gestures.clickOn(digitOne);
+            gestures.clickOn(digitOne);
+            gestures.clickOn(digitOne);
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot tap on pincode number to access contacts");
