@@ -102,12 +102,13 @@ public class PinCode implements Activity {
                 //do nothing
             }
             MyLogger.log.info("Entering pin digits");
-            gestures.click(digitOne, true);
-            gestures.click(digitOne, true);
-            gestures.click(digitOne, true);
-            gestures.click(digitOne, true);
-            gestures.click(digitOne, true);
-            gestures.click(digitOne, true);
+            gestures.click("1", "XCUIElementTypeButton", true);
+            gestures.click("1", "XCUIElementTypeButton", true);
+            gestures.click("1", "XCUIElementTypeButton", true);
+            gestures.click("1", "XCUIElementTypeButton", true);
+            gestures.click("1", "XCUIElementTypeButton", true);
+            gestures.click("1", "XCUIElementTypeButton", true);
+            gestures.click("1", "XCUIElementTypeButton", true);
 
             return this;
         } catch (NoSuchElementException e) {
