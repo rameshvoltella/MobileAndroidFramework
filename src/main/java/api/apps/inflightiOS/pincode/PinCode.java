@@ -45,7 +45,7 @@ public class PinCode implements Activity {
     public By enterPinLabel = By.id("Enter PIN");
     public By verifyPinLabel = By.id("Verify your new Pin");
     public By enterOldPin = By.id("Enter old PIN");
-//    public By enterOldPin = By.xpath("//XCUIElementTypeStaticText[1][@name='Enter old PIN']");
+    //    public By enterOldPin = By.xpath("//XCUIElementTypeStaticText[1][@name='Enter old PIN']");
     public By enterNewPin = By.id("Enter new PIN");
     public By infoBtn = By.id("Info");
     public By cancelBtn = By.id("Cancel");
@@ -53,7 +53,8 @@ public class PinCode implements Activity {
 
     public PinCode click_digit(int i) {
         try {
-            String pinNumber = "" + i;
+            String pinNumber = Integer.toString(i);
+//            String pinNumber = "" + i;
             MyLogger.log.info("Tap on pincode number: " + pinNumber + " button from FTW");
             gestures.clickOn(By.id(pinNumber));
             return this;
