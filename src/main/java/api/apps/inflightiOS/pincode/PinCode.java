@@ -77,12 +77,31 @@ public class PinCode implements Activity {
                 //do nothing
             }
             MyLogger.log.info("Entering pin digits");
-//            click_digit(digit1);
-//            click_digit(digit2);
-//            click_digit(digit3);
-//            click_digit(digit4);
-//            click_digit(digit5);
-//            click_digit(digit6);
+            click_digit(digit1);
+            click_digit(digit2);
+            click_digit(digit3);
+            click_digit(digit4);
+            click_digit(digit5);
+            click_digit(digit6);
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot tap on pincode number to access contacts");
+        }
+    }
+
+    public PinCode unlockWithPinCode2() {
+        try {
+            MyLogger.log.info("dismiss touch id alert");
+            try {
+                WebElement alert = Android.driverIos.findElement(touchIdAlert);
+                if (alert.isDisplayed()) {
+                    MyLogger.log.info(alert + " Was found and now we are dismissing it");
+                    gestures.clickOn(cancelTouchIdAlert);
+                }
+            } catch (Throwable e) {
+                //do nothing
+            }
+            MyLogger.log.info("Entering pin digits");
             gestures.clickOn(digitOne);
             gestures.clickOn(digitOne);
             gestures.clickOn(digitOne);
