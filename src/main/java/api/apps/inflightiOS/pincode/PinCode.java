@@ -21,7 +21,7 @@ public class PinCode implements Activity {
     Waiters waithelper = new Waiters();
 
     //Elements from SETTINGS PIN CODE
-    public By pinCodeLabel = By.id("PIN code");
+    public By pinCodeLabel = By.id("Use PIN code");
     public By pinCodeBtn = By.xpath("//XCUIElementTypeSwitch[1][@name='PIN code']");
     public By changePin = By.id("Change PIN code");
     public By touchIdLabel = By.id("Use Touch ID");
@@ -56,7 +56,7 @@ public class PinCode implements Activity {
         try {
             String pinNumber = Integer.toString(i);
 //            String pinNumber = "" + i;
-            MyLogger.log.info("Tap on pincode number: " + pinNumber + " button from FTW");
+            MyLogger.log.info("Tap on pincode number: " + pinNumber + " button from PinCode page");
             Android.driverIos.getPageSource();
             gestures.clickOn(By.id(pinNumber));
             return this;
@@ -142,8 +142,15 @@ public class PinCode implements Activity {
 
     public PinCode clickEnableTouchLater() {
         try {
-            MyLogger.log.info("Click on Enable/Disable touch ID later in Enable Touch Id page from fresh install");
-            gestures.clickOn(enableTouchIdLater);
+            try {
+                WebElement element = Android.driverIos.findElement(enableTouchIdLater);
+                if (element.isDisplayed()) {
+                    MyLogger.log.info("Click on Enable/Disable touch ID later in Enable Touch Id page from fresh install");
+                    gestures.clickOn(enableTouchIdLater);
+                }
+            } catch (WebDriverException e) {
+                //do nothing
+            }
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot click on Enable/Disable touch ID later in Enable Touch Id page from fresh install");
@@ -205,13 +212,20 @@ public class PinCode implements Activity {
     //validate elements from Enable Touch Id page which appears on fresh install
     public PinCode validateEnableTouchIdPageElements() {
         try {
-            MyLogger.log.info("Validate elements from Enable Touch Id page which appears on fresh install");
-            waithelper.waitForElementVIsibilityIOS(enableTouchIdLabel);
-            assertsUtils.isElementDisplayed(enableTouchIdLabel);
-            assertsUtils.isElementDisplayed(touchIdDescription);
-            assertsUtils.isElementDisplayed(fingerPrintIcon);
-            assertsUtils.isElementDisplayed(enableTouchIdLater);
+            try {
+                WebElement element = Android.driverIos.findElement(enableTouchIdLabel);
+                if (element.isDisplayed()) {
+                    MyLogger.log.info("Validate elements from Enable Touch Id page which appears on fresh install");
+                    waithelper.waitForElementVIsibilityIOS(enableTouchIdLabel);
+                    assertsUtils.isElementDisplayed(enableTouchIdLabel);
+                    assertsUtils.isElementDisplayed(touchIdDescription);
+                    assertsUtils.isElementDisplayed(fingerPrintIcon);
+                    assertsUtils.isElementDisplayed(enableTouchIdLater);
 //            assertsUtils.isElementDisplayed(enableDisableTouch);
+                }
+            } catch (WebDriverException e) {
+                //do nothing
+            }
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot Validate elements from Enable Touch Id page which appears on fresh install");
@@ -224,7 +238,6 @@ public class PinCode implements Activity {
             MyLogger.log.info("validate elements from Change Pin page");
             waithelper.waitForElementVIsibilityIOS(enterOldPin);
             assertsUtils.isElementDisplayed(enterOldPin);
-            assertsUtils.isElementDisplayed(infoBtn);
             assertsUtils.isElementDisplayed(cancelBtn);
             return this;
         } catch (NoSuchElementException e) {
@@ -238,7 +251,6 @@ public class PinCode implements Activity {
             MyLogger.log.info("validate elements from Change Pin page");
             waithelper.waitForElementVIsibilityIOS(enterNewPin);
             assertsUtils.isElementDisplayed(enterNewPin);
-            assertsUtils.isElementDisplayed(infoBtn);
             assertsUtils.isElementDisplayed(cancelBtn);
             return this;
         } catch (NoSuchElementException e) {

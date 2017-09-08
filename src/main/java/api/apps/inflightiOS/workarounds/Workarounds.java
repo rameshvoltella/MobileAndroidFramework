@@ -19,7 +19,6 @@ public class Workarounds implements Activity{
     public Workarounds skipLoginmethod() {
         try {
             MyLogger.log.info("Unlock the app to start testing");
-            pinCode.unlockWithPinCode(1,1,1,1,1,1);
             pinCode.clickSetupLaterPin();
             pinCode.clickEnableTouchLater();
             gestures.clickOn(skipLogin);
@@ -28,6 +27,7 @@ public class Workarounds implements Activity{
             throw new AssertionError("Cannot Unlock the app to start testing");
         }
     }
+
 
     @Override
     public Object waitToLoad() {

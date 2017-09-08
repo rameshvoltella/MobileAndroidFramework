@@ -5,6 +5,7 @@ import core.managers.ServerManager;
 import io.appium.java_client.TouchAction;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.aspectj.weaver.ast.And;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
@@ -18,6 +19,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -329,8 +331,7 @@ public class EmailHelpers {
             }
 
             // tap on coordinates
-            new TouchAction(Android.driver).longPress(cX + sW / 2, cY + sH / 2, 1).release().perform();
-
+            new TouchAction(Android.driver).longPress(cX + sW / 2, cY + sH / 2, Duration.ofSeconds(1)).release().perform();
         } catch (IOException e) {
             e.printStackTrace();
             try {

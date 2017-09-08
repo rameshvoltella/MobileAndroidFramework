@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
+import java.time.Duration;
 
 public class TestSet_01_FirstTimeView extends TestManager {
 
@@ -88,7 +89,7 @@ public class TestSet_01_FirstTimeView extends TestManager {
         inflightiOS.firsttimeview.validatePageIndicatorValue("page 1 of 4");
         inflightiOS.firsttimeview.validateCloseBtnIsVisible();
 
-        Android.driverIos.runAppInBackground(2);
+        Android.driverIos.runAppInBackground(Duration.ofSeconds(2));
         inflightiOS.firsttimeview.validateCloseBtnIsVisible();
         inflightiOS.firsttimeview.validatePageIndicatorValue("page 1 of 4");
         inflightiOS.firsttimeview.clickNextPageBtn();

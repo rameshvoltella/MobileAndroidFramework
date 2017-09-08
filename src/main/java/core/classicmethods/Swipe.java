@@ -7,6 +7,8 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSTouchAction;
 import org.openqa.selenium.*;
 
+import java.time.Duration;
+
 public class Swipe {
 
     public static void swipeUp() {
@@ -14,7 +16,7 @@ public class Swipe {
         int height = screenDim.height;
         int width = screenDim.width;
         MyLogger.log.info("Swipe up using android driver swipe command");
-        Android.driver.swipe(width / 2, height - height / 3, width / 2, height / 6, 1000);
+//        Android.driver.swipe(width / 2, height - height / 3, width / 2, height / 6, 1000);
     }
 
     public static void swipeUpLeftPartOfScreen() {
@@ -22,7 +24,7 @@ public class Swipe {
         int height = screenDim.height;
         int width = screenDim.width;
         MyLogger.log.info("Swipe up in the left part of the screen using android driver swipe command");
-        Android.driver.swipe(width / 5, height - height / 3, width / 5, height / 6, 1000);
+//        Android.driver.swipe(width / 5, height - height / 3, width / 5, height / 6, 1000);
     }
 
     public static void swipeDown() {
@@ -30,7 +32,7 @@ public class Swipe {
         int height = screenDim.height;
         int width = screenDim.width;
         MyLogger.log.info("Swipe up using android driver swipe command");
-        Android.driver.swipe(width / 2, height / 6, width / 2, height - height / 3, 1000);
+//        Android.driver.swipe(width / 2, height / 6, width / 2, height - height / 3, 1000);
     }
 
     public void swipeLeftWithTouchiOS() {
@@ -38,7 +40,7 @@ public class Swipe {
         int height = screenDim.height;
         int width = screenDim.width;
         MyLogger.log.info("Swipe right using android driver swipe command");
-        new TouchAction(Android.driverIos).press(width, height / 2).waitAction(100).moveTo(- width, height / 2).release().perform();
+        new TouchAction(Android.driverIos).press(width, height / 2).waitAction(Duration.ofSeconds(1)).moveTo(- width, height / 2).release().perform();
     }
 
     public void swipeRightWithTouchiOS() {
@@ -46,7 +48,7 @@ public class Swipe {
         int height = screenDim.height;
         int width = screenDim.width;
         MyLogger.log.info("Swipe right using android driver swipe command");
-        new TouchAction(Android.driverIos).press(0, height / 2).waitAction(100).moveTo(width, height / 2).release().perform();
+        new TouchAction(Android.driverIos).press(0, height / 2).waitAction(Duration.ofSeconds(1)).moveTo(width, height / 2).release().perform();
 
 
     }
@@ -101,8 +103,8 @@ public class Swipe {
         TouchAction ta1 = new TouchAction(Android.driver);
         TouchAction ta2 = new TouchAction(Android.driver);
         MultiTouchAction ma = new MultiTouchAction(Android.driver);
-        ta1.press(0, height / 4).waitAction(200).moveTo(2 * width / 3, 0).release();
-        ta2.press(0, height / 4).waitAction(200).moveTo(2 * width / 3, 0).release();
+        ta1.press(0, height / 4).waitAction(Duration.ofSeconds(1)).moveTo(2 * width / 3, 0).release();
+        ta2.press(0, height / 4).waitAction(Duration.ofSeconds(1)).moveTo(2 * width / 3, 0).release();
         ma.add(ta1).add(ta2).perform();
     }
 
@@ -148,7 +150,7 @@ public class Swipe {
         int endPointVertical = upheightpoint + 1;
         // int endPointVertical = upheightpoint + (height / 4);
 
-        Android.driver.swipe(startPointHorizontal, startPointVertical, startPointHorizontal, endPointVertical, durationMilliSeconds);
+//        Android.driver.swipe(startPointHorizontal, startPointVertical, startPointHorizontal, endPointVertical, durationMilliSeconds);
     }
 
     public void down_inElement(By by, int durationMilliSeconds) {
@@ -171,7 +173,7 @@ public class Swipe {
         // get lower point of element
         int endPointVertical = upheightpoint + height - 1;
 
-        Android.driver.swipe(startPointHorizontal, startPointVertical, startPointHorizontal, endPointVertical, durationMilliSeconds);
+//        Android.driver.swipe(startPointHorizontal, startPointVertical, startPointHorizontal, endPointVertical, durationMilliSeconds);
     }
 
 
@@ -197,8 +199,8 @@ public class Swipe {
 
         // swipe(startPointHorizontal, startPointVertical, startPointHorizontal,
         // endPointVertical, durationMilliSeconds);
-        Android.driver.swipe(startPointHorizontal, startPointVertical, endPointHorizontal, startPointHorizontal,
-                durationMilliSeconds);
+//        Android.driver.swipe(startPointHorizontal, startPointVertical, endPointHorizontal, startPointHorizontal,
+//                durationMilliSeconds);
     }
 
     public void scrollDown(Gestures.HorizontalPosition horizontalPosition) {
@@ -241,7 +243,7 @@ public class Swipe {
         if (isScreenDifferent) {
 
         } else {
-            Android.driverIos.performTouchAction(new IOSTouchAction(Android.driverIos)).press(startHorizontal, startVertical).waitAction(500).moveTo(startHorizontal, stopVertical).release().perform();
+            Android.driverIos.performTouchAction(new IOSTouchAction(Android.driverIos)).press(startHorizontal, startVertical).waitAction(Duration.ofSeconds(1)).moveTo(startHorizontal, stopVertical).release().perform();
         }
     }
 
@@ -283,7 +285,7 @@ public class Swipe {
         if (isScreenDifferent) {
 
         } else {
-            Android.driverIos.performTouchAction(new IOSTouchAction(Android.driverIos)).press(startHorizontal, startVertical).waitAction(500).moveTo(startHorizontal, stopVertical).release().perform();
+            Android.driverIos.performTouchAction(new IOSTouchAction(Android.driverIos)).press(startHorizontal, startVertical).waitAction(Duration.ofSeconds(1)).moveTo(startHorizontal, stopVertical).release().perform();
         }
     }
 
