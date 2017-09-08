@@ -20,14 +20,11 @@ public class TestSet_02_Pin_TouchID extends TestManager {
     public void createNewPin() {
         testInfo.id("test1 from TestSet_02_Pin_TouchID").name("createNewPin").suite("GeneralTests");
 
-//        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
-        inflightiOS.pinCode.unlockWithPinCode2();
+        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
         inflightiOS.pinCode.validateCreatePinCodePageElements();
-//        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
-        inflightiOS.pinCode.unlockWithPinCode2();
+        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
         inflightiOS.pinCode.validateCreatePinCodeVerifyPageElements();
-//        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
-        inflightiOS.pinCode.unlockWithPinCode2();
+        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
         inflightiOS.pinCode.validateEnableTouchIdPageElements();
         inflightiOS.pinCode.clickEnableTouchLater();
     }
@@ -40,16 +37,13 @@ public class TestSet_02_Pin_TouchID extends TestManager {
         inflightiOS.firsttimeview.clickXBtn();
         inflightiOS.mainMenu.clickBurgerMenu();
         inflightiOS.mainMenu.clickSettings();
-//        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
-        inflightiOS.pinCode.unlockWithPinCode2();
+        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
         inflightiOS.pinCode.validatePinCodeOptions();
         inflightiOS.pinCode.clickChangePin();
         inflightiOS.pinCode.validateElementsFromChangePinPage();
-//        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
-        inflightiOS.pinCode.unlockWithPinCode2();
+        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
         inflightiOS.pinCode.validateElementsFromChangePinPageNewPin();
-//        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
-        inflightiOS.pinCode.unlockWithPinCode2();
+        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
         inflightiOS.pinCode.validatePinCodeOptions();
     }
 
@@ -63,8 +57,7 @@ public class TestSet_02_Pin_TouchID extends TestManager {
         DriverManagerIOS.createiOSDriverNoReset();
         Android.driverIos.closeApp();
         Android.driverIos.launchApp();
-//        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
-        inflightiOS.pinCode.unlockWithPinCode2();
+        inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
         inflightiOS.mainMenu.ValidateHamburgerMenuIsDisplayed();
         inflightiOS.mainMenu.clickBurgerMenu();
     }

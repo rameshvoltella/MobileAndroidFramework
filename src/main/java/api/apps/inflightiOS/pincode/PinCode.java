@@ -57,6 +57,7 @@ public class PinCode implements Activity {
             String pinNumber = Integer.toString(i);
 //            String pinNumber = "" + i;
             MyLogger.log.info("Tap on pincode number: " + pinNumber + " button from FTW");
+            Android.driverIos.getPageSource();
             gestures.clickOn(By.id(pinNumber));
             return this;
         } catch (NoSuchElementException e) {
@@ -83,31 +84,6 @@ public class PinCode implements Activity {
             click_digit(digit4);
             click_digit(digit5);
             click_digit(digit6);
-            return this;
-        } catch (NoSuchElementException e) {
-            throw new AssertionError("Cannot tap on pincode number to access contacts");
-        }
-    }
-
-    public PinCode unlockWithPinCode2() {
-        try {
-            MyLogger.log.info("dismiss touch id alert");
-            try {
-                WebElement alert = Android.driverIos.findElement(touchIdAlert);
-                if (alert.isDisplayed()) {
-                    MyLogger.log.info(alert + " Was found and now we are dismissing it");
-                    gestures.clickOn(cancelTouchIdAlert);
-                }
-            } catch (Throwable e) {
-                //do nothing
-            }
-            MyLogger.log.info("Entering pin digits");
-            gestures.click("//XCUIElementTypeButton[1][@name='1']");
-            gestures.click("//XCUIElementTypeButton[1][@name='1']");
-            gestures.click("//XCUIElementTypeButton[1][@name='1']");
-            gestures.click("//XCUIElementTypeButton[1][@name='1']");
-            gestures.click("//XCUIElementTypeButton[1][@name='1']");
-            gestures.click("//XCUIElementTypeButton[1][@name='1']");
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot tap on pincode number to access contacts");
