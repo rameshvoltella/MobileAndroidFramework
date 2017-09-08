@@ -102,12 +102,13 @@ public class PinCode implements Activity {
                 //do nothing
             }
             MyLogger.log.info("Entering pin digits");
-            gestures.clickOn(digitOne);
-            gestures.clickOn(digitOne);
-            gestures.clickOn(digitOne);
-            gestures.clickOn(digitOne);
-            gestures.clickOn(digitOne);
-            gestures.clickOn(digitOne);
+            gestures.click(digitOne, true);
+            gestures.click(digitOne, true);
+            gestures.click(digitOne, true);
+            gestures.click(digitOne, true);
+            gestures.click(digitOne, true);
+            gestures.click(digitOne, true);
+
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot tap on pincode number to access contacts");

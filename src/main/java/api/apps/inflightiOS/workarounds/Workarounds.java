@@ -19,7 +19,8 @@ public class Workarounds implements Activity{
     public Workarounds skipLoginmethod() {
         try {
             MyLogger.log.info("Unlock the app to start testing");
-            pinCode.unlockWithPinCode(1,1,1,1,1,1);
+//            pinCode.unlockWithPinCode(1,1,1,1,1,1);
+            pinCode.unlockWithPinCode2();
             pinCode.clickSetupLaterPin();
             pinCode.clickEnableTouchLater();
             gestures.clickOn(skipLogin);

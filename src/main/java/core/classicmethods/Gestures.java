@@ -138,6 +138,7 @@ public class Gestures {
     //click on element by id with should be clickable or not
     public void click(By by, boolean isclickable) {
         WebElement we = null;
+        waithelper.waitForElementVIsibilityIOS(by);
         we = Android.driverIos.findElement(by);
         if (we != null) {
             if (isclickable) {
