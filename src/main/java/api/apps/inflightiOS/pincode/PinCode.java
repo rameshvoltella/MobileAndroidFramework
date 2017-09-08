@@ -102,12 +102,12 @@ public class PinCode implements Activity {
                 //do nothing
             }
             MyLogger.log.info("Entering pin digits");
-            gestures.click("1", Gestures.Attribute.NAME, true, Gestures.HorizontalPosition.CENTER, Gestures.VerticalPosition.CENTER, false);
-            gestures.click("1", Gestures.Attribute.NAME, true, Gestures.HorizontalPosition.CENTER, Gestures.VerticalPosition.CENTER, false);
-            gestures.click("1", Gestures.Attribute.NAME, true, Gestures.HorizontalPosition.CENTER, Gestures.VerticalPosition.CENTER, false);
-            gestures.click("1", Gestures.Attribute.NAME, true, Gestures.HorizontalPosition.CENTER, Gestures.VerticalPosition.CENTER, false);
-            gestures.click("1", Gestures.Attribute.NAME, true, Gestures.HorizontalPosition.CENTER, Gestures.VerticalPosition.CENTER, false);
-            gestures.click("1", Gestures.Attribute.NAME, true, Gestures.HorizontalPosition.CENTER, Gestures.VerticalPosition.CENTER, false);
+            gestures.click("//XCUIElementTypeButton[1][@name='1']");
+            gestures.click("//XCUIElementTypeButton[1][@name='1']");
+            gestures.click("//XCUIElementTypeButton[1][@name='1']");
+            gestures.click("//XCUIElementTypeButton[1][@name='1']");
+            gestures.click("//XCUIElementTypeButton[1][@name='1']");
+            gestures.click("//XCUIElementTypeButton[1][@name='1']");
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot tap on pincode number to access contacts");
