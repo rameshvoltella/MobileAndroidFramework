@@ -97,7 +97,7 @@ public class TestSet_01_FirstTimeView extends TestManager {
     }
 
     @Test
-    public void ftwNotDisplayedAfterClosingTheApp() throws IOException, ParseException {
+    public void ftwNotDisplayedAfterClosingTheApp() throws Exception {
         testInfo.id("test4 from TestSet_01_FirstTimeView").name("ftwNotDisplayedAfterClosingTheApp").suite("GeneralTests");
 
         inflightiOS.firsttimeview.validatePageIndicatorValue("page 1 of 4");
@@ -123,7 +123,7 @@ public class TestSet_01_FirstTimeView extends TestManager {
     }
 
     @Test
-    public void enableDisableDontShow() throws IOException, ParseException {
+    public void enableDisableDontShow() throws Exception {
         testInfo.id("test6 from TestSet_01_FirstTimeView").name("enableDisableDontShow").suite("GeneralTests");
 
         inflightiOS.firsttimeview.clickNextPageBtn();
