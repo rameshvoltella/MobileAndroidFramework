@@ -43,35 +43,36 @@ public class TestManager {
     @Before
     public void before() throws Exception {
         testInfo.reset();
-        if (isWindows() && isAndroid()) {
-            MyLogger.log.info("Driver creation started for Windows Environment");
+        if (isWindows() && isAndroidFromJason()) {
+            MyLogger.log.info("++++++++++++++++++++++ Driver creation started for Windows Environment ++++++++++++++++++++++");
             DriverManagerAndroid.createDriver();
-//        } else if (isMac() && isAndroid()) {
-//            MyLogger.log.info("Driver creation started for Windows Environment");
-//            DriverManagerAndroid.createDriver();
-        } else if (isMac() && isIos()) {
-            MyLogger.log.info("Driver creation started for Mac Environment");
+        } else if (isMac() && isAndroidFromJason()) {
+            MyLogger.log.info("++++++++++++++++++++++ Driver creation started for Windows Environment ++++++++++++++++++++++");
+            DriverManagerAndroid.createDriver();
+        } else if (isMac() && isIosFromJason()) {
+            MyLogger.log.info("++++++++++++++++++++++ Driver creation started for Mac Environment ++++++++++++++++++++++");
             DriverManagerIOS.createiOSDriver();
         } else {
-
             MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
             throw new Exception("Setup is ran on other environment; no Windows or Mac could be identified");
 
         }
-}
+    }
 
     @After
     public void cleanAfterTest() throws Exception {
-        if (isWindows()) {
-            MyLogger.log.info("Driver creation started for Windows Environment");
+        if (isWindows() && isAndroidFromJason()) {
+            MyLogger.log.info("++++++++++++++++++++++ Killing Android Driver ++++++++++++++++++++++");
             DriverManagerAndroid.killDriver();
-        } else if (isMac()) {
-            MyLogger.log.info("Driver creation started for Mac Environment");
+        } else if (isMac() && isAndroidFromJason()) {
+            MyLogger.log.info("++++++++++++++++++++++ Killing Android Driver ++++++++++++++++++++++");
+            DriverManagerAndroid.killDriver();
+        } else if (isMac() && isIosFromJason()) {
+            MyLogger.log.info("++++++++++++++++++++++ Killing IOS Driver ++++++++++++++++++++++");
             DriverManagerIOS.killIOSDriver();
         } else {
             MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
             throw new Exception("Setup is ran on other environment; no Windows or Mac could be identified");
-
         }
     }
 

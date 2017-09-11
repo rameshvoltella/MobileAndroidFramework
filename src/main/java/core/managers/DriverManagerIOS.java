@@ -38,7 +38,7 @@ public class DriverManagerIOS {
     private static String unlockPackage = "de.telekom.mail";
     private static boolean fullResetNeeded = true;
 
-    private static DesiredCapabilities getCaps() throws IOException, ParseException {
+    private static DesiredCapabilities getCaps() throws Exception {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -62,7 +62,7 @@ public class DriverManagerIOS {
         return caps;
     }
 
-    private static DesiredCapabilities getCapsNoReset() throws IOException, ParseException {
+    private static DesiredCapabilities getCapsNoReset() throws Exception {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -84,7 +84,7 @@ public class DriverManagerIOS {
         return caps;
     }
 
-    private static URL host(String deviceID) throws IOException, ParseException {
+    private static URL host(String deviceID) throws Exception {
         String UDID = getDeviceId();
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
@@ -93,7 +93,7 @@ public class DriverManagerIOS {
         return hosts.get(deviceID);
     }
 
-    private static AppiumDriverLocalService createService() throws IOException, ParseException {
+    private static AppiumDriverLocalService createService() throws Exception {
         Map<String, String> env = new HashMap<>(System.getenv());
         env.put("PATH", "/usr/local/bin:" + env.get("PATH"));
 
@@ -115,7 +115,7 @@ public class DriverManagerIOS {
         return (AppiumDriverLocalService) service;
     }
 
-    public static void createiOSDriver() throws IOException, ParseException {
+    public static void createiOSDriver() throws Exception {
         String device = getDeviceId();
         try {
             deviceID = device;
@@ -133,7 +133,7 @@ public class DriverManagerIOS {
         }
     }
 
-    public static void createiOSDriverNoReset() throws IOException, ParseException {
+    public static void createiOSDriverNoReset() throws Exception {
         String device = getDeviceId();
         try {
             deviceID = device;

@@ -44,7 +44,7 @@ public class TestSet_02_Pin_TouchID extends TestManager {
     }
 
     @Test
-    public void pinDisplayedAfterAppRestart() throws IOException, ParseException {
+    public void pinDisplayedAfterAppRestart() throws Exception {
         testInfo.id("test3 from TestSet_02_Pin_TouchID").name("pinDisplayedAfterAppRestart").suite("GeneralTests");
 
         createNewPin();

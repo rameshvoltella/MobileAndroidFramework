@@ -65,6 +65,28 @@ public class ServerManager {
         }
     }
 
+    public static String getPlatformVersionFromJason() throws IOException, ParseException {
+        MyLogger.log.info("Get Platform Version From Jason");
+        try {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src\\test\\resources\\PlatfomVersion.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("platformName");
+            MyLogger.log.info("Platform Version From Jason is: " + name);
+            return name;
+
+        } catch (Throwable t) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/PlatfomVersion.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("platformName");
+            MyLogger.log.info("Platform Version From Jason is: " + name);
+            return name;
+        }
+    }
+
     public static String getPlatformIos() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader(
@@ -79,8 +101,16 @@ public class ServerManager {
         return getPlatformAndroid().equals("android");
     }
 
+    public static boolean isAndroidFromJason() throws IOException, ParseException {
+        return getPlatformVersionFromJason().equals("android");
+    }
+
     public static boolean isIos() throws IOException, ParseException {
         return getPlatformIos().equals("ios");
+    }
+
+    public static boolean isIosFromJason() throws IOException, ParseException {
+        return getPlatformVersionFromJason().equals("ios");
     }
 
 
@@ -150,21 +180,32 @@ public class ServerManager {
         }
     }
 
-    public static String getDeviceId() throws IOException, ParseException {
-        if (isWindows()) {
+    public static String getDeviceId() throws Exception {
+        if (isWindows() && isAndroidFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src\\test\\resources\\LocalJsonAndroid.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("DeviceID");
             return name;
-        } else {
+        } else if (isMac() && isAndroidFromJason()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("DeviceID");
+            return name;
+        } else if (isMac() && isIosFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src/test/resources/localJsonIOS.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("DeviceID");
             return name;
+        } else {
+            MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
+            throw new Exception("Setup is ran on other environment; no Windows or Mac could be identified");
+
         }
 
     }
@@ -189,23 +230,32 @@ public class ServerManager {
     }
 
 
-    public static String getIP() throws IOException, ParseException {
-        if (isWindows()) {
+    public static String getIP() throws Exception {
+        if (isWindows() && isAndroidFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src\\test\\resources\\LocalJsonAndroid.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("ip");
             return name;
-        } else {
+        } else if (isMac() && isAndroidFromJason()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("ip");
+            return name;
+        } else if (isMac() && isIosFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src/test/resources/localJsonIOS.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("ip");
             return name;
+        } else {
+            MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
+            throw new Exception("Setup is ran on other environment; no Windows or Mac could be identified");
         }
-
     }
 
     public static String getBootstrap() throws IOException, ParseException {
@@ -248,61 +298,88 @@ public class ServerManager {
 
     }
 
-    public static String getAppLocation() throws IOException, ParseException {
-        if (isWindows()) {
+    public static String getAppLocation() throws Exception {
+        if (isWindows() && isAndroidFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src\\test\\resources\\LocalJsonAndroid.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("appLocation");
             return name;
-        } else {
+        } else if (isMac() && isAndroidFromJason()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("appLocation");
+            return name;
+        } else if (isMac() && isIosFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src/test/resources/localJsonIOS.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("appLocation");
             return name;
+        } else {
+            MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
+            throw new Exception("Setup is ran on other environment; no Windows/Mac or android/ios could be identified");
         }
-
     }
 
-    public static String getAutomationName() throws IOException, ParseException {
-        if (isWindows()) {
+    public static String getAutomationName() throws Exception {
+        if (isWindows() && isAndroidFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src\\test\\resources\\LocalJsonAndroid.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("automationName");
             return name;
-        } else {
+        } else if (isMac() && isAndroidFromJason()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("automationName");
+            return name;
+        } else if (isMac() && isIosFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src/test/resources/localJsonIOS.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("automationName");
             return name;
+        } else {
+            MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
+            throw new Exception("Setup is ran on other environment; no Windows/Mac or android/ios could be identified");
         }
-
     }
 
-    public static String getPlatformName() throws IOException, ParseException {
-        if (isWindows()) {
+    public static String getPlatformName() throws Exception {
+        if (isWindows() && isAndroidFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src\\test\\resources\\LocalJsonAndroid.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("platformName");
             return name;
-        } else {
+        } else if (isMac() && isAndroidFromJason()) {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader(
+                    "src/test/resources/LocalJsonAndroid.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            String name = (String) jsonObject.get("platformName");
+            return name;
+        } else if (isMac() && isIosFromJason()) {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(
                     "src/test/resources/localJsonIOS.json"));
             JSONObject jsonObject = (JSONObject) obj;
             String name = (String) jsonObject.get("platformName");
             return name;
+        } else {
+            MyLogger.log.info("Environment is other than Windows and Mac. Please revise getOS method");
+            throw new Exception("Setup is ran on other environment; no Windows/Mac or android/ios could be identified");
         }
-
     }
 
     public static String getDeviceNameJason() throws IOException, ParseException {

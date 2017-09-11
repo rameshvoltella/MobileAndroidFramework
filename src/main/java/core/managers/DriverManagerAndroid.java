@@ -43,7 +43,7 @@ public class DriverManagerAndroid {
     private static HashMap<String, URL> hosts;
     private static String unlockPackage = "de.telekom.mail";
 
-    private static DesiredCapabilities getCaps() throws IOException, ParseException {
+    private static DesiredCapabilities getCaps() throws Exception {
         MyLogger.log.info("Creating driver caps for device: " + deviceID);
 
         DesiredCapabilities caps = new DesiredCapabilities();
@@ -57,7 +57,7 @@ public class DriverManagerAndroid {
         return caps;
     }
 
-    private static URL host(String deviceID) throws IOException, ParseException {
+    private static URL host(String deviceID) throws Exception {
         String UDID = getDeviceId();
         if (hosts == null) {
             hosts = new HashMap<String, URL>();
@@ -101,7 +101,7 @@ public class DriverManagerAndroid {
         return avaiableDevices;
     }
 
-    private static AppiumDriverLocalService createService() throws IOException, ParseException {
+    private static AppiumDriverLocalService createService() throws Exception {
 
         service = AppiumDriverLocalService
                 .buildService(new AppiumServiceBuilder()
@@ -126,7 +126,7 @@ public class DriverManagerAndroid {
         return (AppiumDriverLocalService) service;
     }
 
-    public static void createDriver() throws IOException, ParseException {
+    public static void createDriver() throws Exception {
         ArrayList connectedDevices = ADB.getConnectedDevices();
         if (connectedDevices.size() == 0) {
             throw new RuntimeException("Not a single device is available for testing at this time");
@@ -269,7 +269,7 @@ public class DriverManagerAndroid {
         return ad;
     }
 
-    public static URL getHubUrl() throws IOException, ParseException {
+    public static URL getHubUrl() throws Exception {
         URL url = null;
         hubUrl = "http://" + getIP() + ":" + getPort() + "/wd/hub";
         try {
