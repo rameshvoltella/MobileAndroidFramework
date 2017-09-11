@@ -35,6 +35,10 @@ repositories {
 //    testLogging.showStandardStreams = true
 //}
 
+task generalTestSuite(type: Test){
+    include 'General.class'
+}
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
