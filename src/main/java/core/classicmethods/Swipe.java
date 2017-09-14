@@ -40,7 +40,7 @@ public class Swipe {
         int height = screenDim.height;
         int width = screenDim.width;
         MyLogger.log.info("Swipe right using android driver swipe command");
-        new TouchAction(Android.driverIos).press(width, height / 2).waitAction(Duration.ofSeconds(1)).moveTo(- width, height / 2).release().perform();
+        new TouchAction(Android.driverIos).press(width - 1, height / 2).waitAction(Duration.ofSeconds(1)).moveTo(-width - 1, height / 2).release().perform();
     }
 
     public void swipeRightWithTouchiOS() {
@@ -48,7 +48,7 @@ public class Swipe {
         int height = screenDim.height;
         int width = screenDim.width;
         MyLogger.log.info("Swipe right using android driver swipe command");
-        new TouchAction(Android.driverIos).press(0, height / 2).waitAction(Duration.ofSeconds(1)).moveTo(width, height / 2).release().perform();
+        new TouchAction(Android.driverIos).press(1, height / 2).waitAction(Duration.ofSeconds(1)).moveTo(width * 2, height / 2).release().perform();
 
 
     }
