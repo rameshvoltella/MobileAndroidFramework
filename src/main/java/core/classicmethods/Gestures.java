@@ -430,13 +430,14 @@ public class Gestures {
 
     public void sendText(By by, String inputText) {
         try {
+            waithelper.waitForElementVIsibilityIOS(by);
             WebElement we = Android.driverIos.findElement(by);
             we.clear();
             we.sendKeys();
             Android.driverIos.findElement(by).sendKeys(inputText);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            System.out.println("elemen was not found to clear or to send keys to it");
+            System.out.println("element was not found to clear or to send keys to it");
         }
     }
 
