@@ -1,5 +1,6 @@
 package api.apps.inflightiOS;
 
+import api.apps.inflightiOS.dashboard.Dashboard;
 import api.apps.inflightiOS.firsttimeview.FirstTimeView;
 import api.apps.inflightiOS.loginview.LoginView;
 import api.apps.inflightiOS.mainmenu.MainMenu;
@@ -16,6 +17,7 @@ public class InflightiOS implements Application {
     public Workarounds workarounds = new Workarounds();
     public LoginView loginView = new LoginView();
     public RegisterView registerView = new RegisterView();
+    public Dashboard dashboard = new Dashboard();
 
     @Override
     public void forceStop() {

@@ -30,7 +30,7 @@ public class TestSet_02_Pin_TouchID extends TestManager {
 
         inflightiOS.loginView.skipLogin();
         inflightiOS.firsttimeview.clickXBtn();
-        inflightiOS.mainMenu.clickBurgerMenu();
+        inflightiOS.dashboard.clickHamburgerMenu();
         inflightiOS.mainMenu.clickSettings();
         inflightiOS.pinCode.unlockWithPinCode(1, 1, 1, 1, 1, 1);
         inflightiOS.pinCode.validatePinCodeOptions();

@@ -51,6 +51,9 @@ public class PinCode implements Activity {
     public By cancelBtn = By.id("Cancel");
     public By digitOne = By.id("1");
 
+    //loading session progress bar
+    public By laodingSession = By.id("SVProgressHUD");
+
 
     public PinCode click_digit(int i) {
         try {
@@ -76,6 +79,17 @@ public class PinCode implements Activity {
                 }
             } catch (WebDriverException e) {
                 //do nothing
+            }
+            int count = 0;
+            try {
+                WebElement we = Android.driverIos.findElement(laodingSession);
+                while (we.isDisplayed() && count < 25) {
+                    //do nothing
+                    MyLogger.log.info("Progress bar is still displayed");
+                    count++;
+                }
+            } catch (WebDriverException e) {
+
             }
             MyLogger.log.info("Entering pin digits");
             click_digit(digit1);
@@ -123,6 +137,17 @@ public class PinCode implements Activity {
     public PinCode clickSetupLaterPin() {
         try {
             MyLogger.log.info("Click on Setup Pin later from create a pin code page");
+            int count = 0;
+            try {
+                WebElement we = Android.driverIos.findElement(laodingSession);
+                while (we.isDisplayed() && count < 25) {
+                    //do nothing
+                    MyLogger.log.info("Progress bar is still displayed");
+                    count++;
+                }
+            } catch (WebDriverException e) {
+
+            }
             gestures.clickOn(setUpLaterPin);
             return this;
         } catch (NoSuchElementException e) {
