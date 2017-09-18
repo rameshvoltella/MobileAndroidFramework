@@ -2,6 +2,7 @@ package api.apps.inflightiOS;
 
 import api.apps.inflightiOS.dashboard.Dashboard;
 import api.apps.inflightiOS.firsttimeview.FirstTimeView;
+import api.apps.inflightiOS.help.HelpView;
 import api.apps.inflightiOS.loginview.LoginView;
 import api.apps.inflightiOS.mainmenu.MainMenu;
 import api.apps.inflightiOS.pincode.PinCode;
@@ -18,6 +19,7 @@ public class InflightiOS implements Application {
     public LoginView loginView = new LoginView();
     public RegisterView registerView = new RegisterView();
     public Dashboard dashboard = new Dashboard();
+    public HelpView helpView = new HelpView();
 
     @Override
     public void forceStop() {

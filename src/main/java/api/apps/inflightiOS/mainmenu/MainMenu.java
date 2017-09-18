@@ -25,6 +25,12 @@ public class MainMenu implements Activity {
     public By logoutCategory = By.id("Logout");
     public By termsLegal = By.id("Terms of Use | Legal Notice");
 
+    //elements from terms and legal page
+    public By closeBtnLegalTerm = By.id("close");
+    public By termLegalPageTitle = By.id("Terms of Use");
+    public By firstPageFromLegal = By.xpath("//XCUIElementTypeWebView[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]");
+
+
     private List<String> SETTINGS_SCREEN_MENU_LIST = new ArrayList<String>();
 
     private final List<String> SETTINGS_GENERAL_MENU_VALUES = new ArrayList<String>();
@@ -55,6 +61,17 @@ public class MainMenu implements Activity {
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot click on X btn to close left menu");
+        }
+    }
+
+    //open left menu using swipe to right command
+    public MainMenu openLeftMenuWithSwipe() {
+        try {
+            MyLogger.log.info("Ppen left menu using swipe to right command");
+            swipe.swipeRightWithTouchiOS();
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot open left menu using swipe to right command");
         }
     }
 
@@ -218,6 +235,20 @@ public class MainMenu implements Activity {
         List<WebElement> settingsMenuList = Android.driverIos.findElementsByXPath(
                 "//XCUIElementTypeTable[1]/XCUIElementTypeCell/XCUIElementTypeStaticText");
         return settingsMenuList;
+    }
+
+    //validate elements from LegalTerms page
+    public MainMenu validatelegalTermsPageElements() {
+        try {
+            MyLogger.log.info("Validate if LegalTerms elements are displayed in LegalTerms page");
+            waiters.waitForElementVIsibilityIOS(closeBtnLegalTerm);
+            assertsUtils.isElementDisplayed(closeBtnLegalTerm);
+            assertsUtils.isElementDisplayed(termLegalPageTitle);
+            assertsUtils.isElementDisplayed(firstPageFromLegal);
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot Validate if LegalTerms is displayed in Main Menu");
+        }
     }
 
 

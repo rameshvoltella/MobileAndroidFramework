@@ -433,8 +433,8 @@ public class Gestures {
             waithelper.waitForElementVIsibilityIOS(by);
             WebElement we = Android.driverIos.findElement(by);
             we.clear();
-            we.sendKeys();
-            Android.driverIos.findElement(by).sendKeys(inputText);
+            we.sendKeys(inputText);
+//            Android.driverIos.findElement(by).sendKeys(inputText);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             System.out.println("element was not found to clear or to send keys to it");

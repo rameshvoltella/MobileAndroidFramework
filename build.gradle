@@ -57,6 +57,20 @@ task pinCode(type: Test){
 
 }
 
+task mainMenu(type: Test){
+    useJUnit()
+    systemProperty 'some.prop', 'value'
+    include 'tests/TTestSet_03_MainMenu.class'
+    exclude 'tests/TestSet_01_FirstTimeView.class', 'suites/General.class', 'tests/TestSet_02_Pin_TouchID.class'
+    testLogging.showStandardStreams = true
+    minHeapSize = "128m"
+    maxHeapSize = "512m"
+    jvmArgs '-XX:MaxPermSize=256m'
+    beforeTest { descriptor ->
+        logger.lifecycle("Runnin test: " + descriptor)
+    }
+}
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
