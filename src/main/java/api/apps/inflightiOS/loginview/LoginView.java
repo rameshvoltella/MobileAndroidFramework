@@ -2,12 +2,10 @@ package api.apps.inflightiOS.loginview;
 
 import api.apps.inflightiOS.pincode.PinCode;
 import api.interfaces.Activity;
-import com.sun.xml.internal.bind.v2.TODO;
 import core.MyLogger;
 import core.classicmethods.AssertsUtils;
 import core.classicmethods.Gestures;
 import core.classicmethods.Waiters;
-import javafx.scene.control.TableColumnBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
