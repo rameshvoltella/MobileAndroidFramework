@@ -17,6 +17,7 @@ public class Swipe {
         int width = screenDim.width;
         MyLogger.log.info("Swipe up using android driver swipe command");
 //        Android.driver.swipe(width / 2, height - height / 3, width / 2, height / 6, 1000);
+        new TouchAction(Android.driverIos).press(width / 5, height - 2).waitAction(Duration.ofSeconds(1)).moveTo(width / 5, -height - 1).release().perform();
     }
 
     public static void swipeUpLeftPartOfScreen() {
