@@ -29,6 +29,11 @@ public class Waiters {
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
+    public void waitForElementVIsibilityIOS2(By element) {
+        FluentWait<IOSDriver> wait = new FluentWait<IOSDriver>(Android.driverIos).withTimeout(20, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
+        wait.until(ExpectedConditions.presenceOfElementLocated(element));
+    }
+
     public WebElement waitForElement(By by, WaitCondition waitCondition) {
         WebElement element = null;
         try {

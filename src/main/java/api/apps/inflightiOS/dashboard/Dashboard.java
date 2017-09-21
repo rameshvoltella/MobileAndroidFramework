@@ -29,6 +29,7 @@ public class Dashboard implements Activity {
     public By connectBtn = By.id("Connect");
     public By newsBtn = By.id("News");
     public By awardsBtn = By.id("Awards");
+    public By upgradeBtn = By.id("Upgrade");
 
     //click on hamburger menu button
     public Dashboard clickHamburgerMenu() {
@@ -134,6 +135,18 @@ public class Dashboard implements Activity {
             return this;
         } catch (NoSuchElementException e) {
             throw new AssertionError("Cannot validate displayed elements from Dashboard bottom bar");
+        }
+    }
+
+    //validate that Upgrade category appread in Dashboard after buying any package
+    public Dashboard validateUpgradeInBottomBar() {
+        try {
+            MyLogger.log.info("Validate that Upgrade category appread in Dashboard after buying any package");
+            waiters.waitForElementVIsibilityIOS(upgradeBtn);
+            assertsUtils.isElementDisplayed(upgradeBtn);
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot validate that Upgrade category appread in Dashboard after buying any package");
         }
     }
 

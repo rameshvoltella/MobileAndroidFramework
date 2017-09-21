@@ -48,6 +48,20 @@ public class Workarounds implements Activity {
         }
     }
 
+    public Workarounds goDirectlyToConnect() {
+        try {
+            MyLogger.log.info("Unlock the app to start testing");
+            pinCode.clickSetupLaterPin();
+            pinCode.clickEnableTouchLater();
+            gestures.clickOn(skipLogin);
+            firstTimeView.clickXBtn();
+            dashboard.clickConnectBtn();
+            return this;
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Cannot Unlock the app to start testing");
+        }
+    }
+
 
     @Override
     public Object waitToLoad() {

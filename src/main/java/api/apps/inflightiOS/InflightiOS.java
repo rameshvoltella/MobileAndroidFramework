@@ -1,5 +1,6 @@
 package api.apps.inflightiOS;
 
+import api.apps.inflightiOS.connectview.ConnectView;
 import api.apps.inflightiOS.dashboard.Dashboard;
 import api.apps.inflightiOS.firsttimeview.FirstTimeView;
 import api.apps.inflightiOS.help.HelpView;
@@ -20,6 +21,7 @@ public class InflightiOS implements Application {
     public RegisterView registerView = new RegisterView();
     public Dashboard dashboard = new Dashboard();
     public HelpView helpView = new HelpView();
+    public ConnectView connectView = new ConnectView();
 
     @Override
     public void forceStop() {

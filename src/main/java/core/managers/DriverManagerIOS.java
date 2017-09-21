@@ -29,7 +29,7 @@ import static core.managers.ServerManager.*;
 
 public class DriverManagerIOS {
 
-    private static String nodeJS = "/usr/local/Cellar/node/6.8.0/bin/node";
+    private static String nodeJS = "/usr/local/Cellar/node/8.5.0/bin/node";
     private static String appiumJS = "/usr/local/lib/node_modules/appium/build/lib/main.js";
     private static DriverService service;
     private static String deviceID;
