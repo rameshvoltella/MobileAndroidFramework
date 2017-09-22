@@ -29,5 +29,28 @@ public class TestSet_04_ConnectView extends TestManager {
         inflightiOS.dashboard.validateUpgradeInBottomBar();
     }
 
+    @Test
+    public void buySurfPackage() {
+        inflightiOS.connectView.clickBuyNowSurf();
+        inflightiOS.connectView.validateSurfPurchaseConfirmation();
+        inflightiOS.connectView.clickBuyNow();
+        inflightiOS.dashboard.validateUpgradeInBottomBar();
+    }
+
+    @Test
+    public void buyStreamPackage() {
+        inflightiOS.connectView.clickBuyNowStream();
+        inflightiOS.connectView.validateStreamfPurchaseConfirmation();
+        inflightiOS.connectView.clickBuyNow();
+        inflightiOS.dashboard.validateUpgradeInBottomBar();
+    }
+
+    @Test
+    public void validateTelekomPartnerLogin(){
+        inflightiOS.connectView.validateTelekomPartnerLoginDisplayedInConnectPage();
+        inflightiOS.connectView.clickTelekomPartnerLogin();
+        inflightiOS.connectView.validateTelekomPartnerPageElem();
+    }
+
 
 }
